@@ -1,0 +1,184 @@
+{"data": [{
+"name": "办理材料出具机关",
+"des": ""
+}, {
+"name": "当事人",
+"des": ""
+},{
+"name": "委托书公证机关",
+"des": ""
+}, {
+"name": "办理材料",
+"des": ""
+}, {
+"name": "办理事项",
+"des": ""
+},{
+"name": "委托书",
+"des": ""
+}, {
+"name":"办结材料",
+"des":""
+}, {
+"name":"办理机关",
+"des":""
+}, {
+"name":"推荐事项",
+"des":""
+}],
+
+
+"links": [{
+"source": "办理材料出具机关",
+"target": "办理材料出具机关",
+"name": "规则标签",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "办理材料出具机关",
+"target": "办理材料",
+"name": "开具",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "当事人",
+"target": "当事人",
+"name": "规则标签",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "当事人",
+"target": "办理材料",
+"name": "提交",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "当事人",
+"target": "办理事项",
+"name": "办理",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "当事人",
+"target": "委托书",
+"name": "提交",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "当事人",
+"target": "推荐事项",
+"name": "办理",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "委托书公证机关",
+"target": "委托书公证机关",
+"name": "规则标签",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "委托书公证机关",
+"target": "委托书",
+"name": "公证",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "办理材料",
+"target": "办理事项",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}, {
+"source": "办理材料",
+"target": "推荐事项",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}, {
+"source": "办理事项",
+"target": "办结材料",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}, {
+"source": "委托书",
+"target": "办理事项",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}, {
+"source": "办结材料",
+"target": "当事人",
+"name": "获得（状态更新）",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "推荐事项",
+"target": "办结材料",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}, {
+"source": "办理机关",
+"target": "办理机关",
+"name": "规则标签",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "办理机关",
+"target": "办理事项",
+"name": "履行",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "办理机关",
+"target": "办结材料",
+"name": "生成",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "办理机关",
+"target": "推荐事项",
+"name": "履行",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}
+]}

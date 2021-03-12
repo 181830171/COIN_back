@@ -1,0 +1,131 @@
+{"data": [{
+"name": "李明远",
+"des": ""
+}, {
+"name": "福建博动文化传播有限公司",
+"des": ""
+},{
+"name": "福建博瑞网络科技有限公司",
+"des": ""
+}, {
+"name": "北京幻想纵横网络技术有限公司",
+"des": ""
+}, {
+"name": "上海优扬新媒信息技术有限公司",
+"des": ""
+},{
+"name": "北京百度网讯科技有限公司",
+"des": ""
+}, {
+"name":"合肥优点信息技术有限公司",
+"des":""
+}, {
+"name":"百度九一网络技术（福州）有限公司",
+"des":""
+}, {
+"name":"福州百度博瑞网络科技有限公司",
+"des":""
+},{
+"name":"福州博远无线网络科技有限公司",
+"des":""
+}],
+
+
+"links": [{
+"source": "李明远",
+"target": "福建博动文化传播有限公司",
+"name": "职务：执行董事兼总经理 法人",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "福建博瑞网络科技有限公司",
+"name": "投资额未知 法人 职务：执行董事",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "北京幻想纵横网络技术有限公司",
+"name": "法人 职务：董事长",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "上海优扬新媒信息技术有限公司",
+"name": "法人 职务：执行董事",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "北京百度网讯科技有限公司",
+"target": "上海优扬新媒信息技术有限公司",
+"name": "投资额未知",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "北京百度网讯科技有限公司",
+"target": "合肥优点信息技术有限公司",
+"name": "投资额未知",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "北京百度网讯科技有限公司",
+"target": "北京幻想纵横网络技术有限公司",
+"name": "投资额未知",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "合肥优点信息技术有限公司",
+"name": "法人 职务：执行董事",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "百度九一网络技术（福州）有限公司",
+"name": "法人 职务：董事长兼总经理",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "福建百度博瑞网络科技有限公司",
+"name": "职务：董事 投资额未知",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "李明远",
+"target": "福州博远无线网络科技有限公司",
+"name": "职务：执行董事兼总经理 法人",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "福州博远无线网络科技有限公司",
+"target": "福建博动文化传播有限公司",
+"name": "投资额未知",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}
+]}
