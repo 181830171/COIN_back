@@ -1,23 +1,26 @@
 package com.example.neo4jKG.Service;
 
 import com.example.neo4jKG.Entity.NeoEntity;
-import com.example.neo4jKG.Entity.Relate;
+import com.example.neo4jKG.VO.NeoAndRelationListVO;
+import com.example.neo4jKG.VO.NeoEntityVO;
+import com.example.neo4jKG.VO.RelationVO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface NeoEntityService {
-    NeoEntity create(NeoEntity neoEntity);
+    NeoEntityVO addNeoEntity(NeoEntityVO neoEntity);
 
-    void deleteById(Long id);
+    void deleteByIdCus(Long id);
 
-    Optional<NeoEntity> findById(Long id);
+    NeoEntityVO findById(Long id);
 
     List<NeoEntity> findAll();
 
-    Relate addIRelates(NeoEntity from, NeoEntity to, boolean isSolid);
+    RelationVO addIRelates(NeoEntityVO from, NeoEntityVO to, boolean isSolid);
 
-    NeoEntity updateByEntity(Long id, String name);
+    NeoEntityVO updateByEntity(Long id, String name, int x, int y, String des, int category, int symbolSize);
 
     void deleteRelateById(long fromId, long toId);
+
+    NeoAndRelationListVO getAllEntitiesAndRelations();
 }

@@ -9,7 +9,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 
 
 @RelationshipEntity(type = "Relate")
-public class Relate {
+public class Relation {
     @Id
     @GeneratedValue
     private Long relationshipId;
@@ -20,16 +20,42 @@ public class Relate {
     @EndNode
     private NeoEntity to;
 
-    @Property
-    private boolean isSolid;
+    @Property(name = "name")
+    private String name;
 
     @Override
     public String toString() {
         return "Relate{" +
+                "relationshipId=" + relationshipId +
                 ", from=" + from +
                 ", to=" + to +
+                ", name='" + name + '\'' +
+                ", des='" + des + '\'' +
+                ", isSolid=" + isSolid +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Property(name = "des")
+    private String des;
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    @Property
+    private boolean isSolid;
 
     public Long getRelationshipId() {
         return relationshipId;
@@ -64,9 +90,9 @@ public class Relate {
     }
 
 
-    public Relate(){}
+    public Relation(){}
 
-    public Relate(Long id, NeoEntity from, NeoEntity to, boolean isSolid){
+    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid){
         this.relationshipId = id;
         this.from = from;
         this.to = to;
