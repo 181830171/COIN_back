@@ -1,0 +1,217 @@
+{"data": [{
+"name": "区块链",
+"des": ""
+}, {
+"name": "基础知识",
+"des": ""
+},{
+"name": "开发环境",
+"des": ""
+}, {
+"name": "项目实践",
+"des": ""
+}, {
+"name": "开发文档",
+"des": ""
+},{
+"name": "技术实现",
+"des": ""
+}, {
+"name":"基本概念",
+"des":""
+}, {
+"name":"工作原理",
+"des":""
+}, {
+"name":"应用场景",
+"des":""
+},{
+"name":"开发工具",
+"des":""
+}, {
+"name":"环境搭建",
+"des":""
+}, {
+"name":"开源产品",
+"des":""
+}, {
+"name":"项目实践",
+"des":""
+},{
+"name":"开发文档",
+"des":""
+},{
+"name":"资源汇总",
+"des":""
+},{
+"name":"P2P网络",
+"des":""
+},{
+"name":"存储技术",
+"des":""
+},{
+"name":"钱包开发",
+"des":""
+},{
+"name":"加密技术",
+"des":""
+},{
+"name":"共识算法",
+"des":""
+}],
+
+
+"links": [{
+"source": "区块链",
+"target": "基础知识",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "区块链",
+"target": "开发环境",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "区块链",
+"target": "项目实践",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "区块链",
+"target": "开发文档",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "区块链",
+"target": "技术实现",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "基础知识",
+"target": "基本概念",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "基础知识",
+"target": "工作原理",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "基础知识",
+"target": "应用场景",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "开发环境",
+"target": "开发工具",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "开发环境",
+"target": "环境搭建",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "项目实践",
+"target": "开源产品",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "项目实践",
+"target": "项目实践",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "开发文档",
+"target": "开发文档",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "开发文档",
+"target": "资源汇总",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "技术实现",
+"target": "P2P网络",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "技术实现",
+"target": "存储技术",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "技术实现",
+"target": "钱包开发",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "技术实现",
+"target": "加密技术",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "技术实现",
+"target": "共识算法",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}
+]}

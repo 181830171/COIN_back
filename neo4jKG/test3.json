@@ -1,0 +1,191 @@
+{"data": [{
+"name": "痛风",
+"des": ""
+}, {
+"name": "2016版中国痛风诊疗指南发表的论文",
+"des": ""
+},{
+"name": "中华医学会风湿病学分会",
+"des": ""
+}, {
+"name": "曾小峰",
+"des": ""
+}, {
+"name": "北京协和医院",
+"des": ""
+},{
+"name": "风湿免疫科",
+"des": ""
+}, {
+"name":"尿酸性肾病痛风性肾结石",
+"des":""
+}, {
+"name":"非布司他",
+"des":""
+}, {
+"name":"尿酸",
+"des":""
+},{
+"name":"关节镜检查",
+"des":""
+}, {
+"name":"关节手术",
+"des":""
+}, {
+"name":"低嘌呤饮食",
+"des":""
+}, {
+"name":"趾关节膝关节",
+"des":""
+},{
+"name":"痛风石急性关节炎高尿酸血症",
+"des":""
+}],
+
+
+"links": [{
+"source": "痛风",
+"target": "2016版中国痛风诊疗指南发表的论文",
+"name": "资源",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "2016版中国痛风诊疗指南发表的论文",
+"target": "中华医学会风湿病学分会",
+"name": "编委会",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "痛风",
+"target": "曾小峰",
+"name": "擅长领域",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "曾小峰",
+"target": "2016版中国痛风诊疗指南发表的论文",
+"name": "作品",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "中华医学会风湿病学分会",
+"target": "曾小峰",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "北京协和医院",
+"target": "痛风",
+"name": "医院",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "风湿免疫科",
+"target": "痛风",
+"name": "科室",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "风湿免疫科",
+"target": "北京协和医院",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "曾小峰",
+"target": "北京协和医院",
+"name": "",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "曾小峰",
+"target": "风湿免疫科",
+"name": "医生",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "尿酸性肾病痛风性肾结石",
+"target": "痛风",
+"name": "合并症并发症",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "非布司他",
+"target": "痛风",
+"name": "有效成分",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "尿酸",
+"target": "痛风",
+"name": "检验",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "关节镜检查",
+"target": "痛风",
+"name": "检查",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "关节手术",
+"target": "痛风",
+"name": "手术操作",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "低嘌呤饮食",
+"target": "痛风",
+"name": "非手术治疗",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "趾关节膝关节",
+"target": "痛风",
+"name": "解剖部位",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+},{
+"source": "痛风石急性关节炎血尿酸血症",
+"target": "痛风",
+"name": "症状",
+"des": "",
+"lineStyle": {
+"type": "dotted"
+}
+}
+]}

@@ -1,0 +1,261 @@
+{"data": [{
+"name": "贾家",
+"des": ""
+}, {
+"name": "贾源",
+"des": ""
+},{
+"name": "贾代善",
+"des": ""
+}, {
+"name": "贾敏",
+"des": ""
+}, {
+"name": "林如海",
+"des": ""
+},{
+"name": "史太君",
+"des": ""
+}, {
+"name":"贾政",
+"des":""
+}, {
+"name":"赵姨娘",
+"des":""
+}, {
+"name":"周姨娘",
+"des":""
+},{
+"name":"贾珠",
+"des":""
+}, {
+"name":"王夫人",
+"des":""
+}, {
+"name":"贾元春",
+"des":""
+}, {
+"name":"琴韵",
+"des":""
+}, {
+"name":"贾环",
+"des":""
+}, {
+"name":"贾探春",
+"des":""
+}, {
+"name":"侍书",
+"des":""
+}, {
+"name":"翠墨",
+"des":""
+}, {
+"name":"小婵",
+"des":""
+},{
+"name":"贾宝玉",
+"des":""
+}, {
+"name":"秋纹",
+"des":""
+}, {
+"name":"晴雯",
+"des":""
+},{
+"name":"袭人",
+"des":""
+}, {
+"name":"薛宝钗",
+"des":""
+}, {
+"name":"麝月",
+"des":""
+}],
+
+
+"links": [{
+"source": "贾家",
+"target": "贾源",
+"name": "继承",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾源",
+"target": "贾代善",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾代善",
+"target": "贾敏",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾敏",
+"target": "林如海",
+"name": "夫妻",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾代善",
+"target": "史太君",
+"name": "夫妻",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾代善",
+"target": "贾政",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "赵姨娘",
+"name": "小妾",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "周姨娘",
+"name": "小妾",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "贾珠",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "王夫人",
+"name": "夫妻",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "贾元春",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾元春",
+"target": "琴韵",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "贾环",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "贾探春",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾探春",
+"target": "侍书",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾探春",
+"target": "翠墨",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾探春",
+"target": "小婵",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾政",
+"target": "贾宝玉",
+"name": "子女",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾宝玉",
+"target": "秋纹",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾宝玉",
+"target": "晴雯",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+},{
+"source": "贾宝玉",
+"target": "袭人",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "贾宝玉",
+"target": "薛宝钗",
+"name": "夫妻",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}, {
+"source": "贾宝玉",
+"target": "麝月",
+"name": "丫鬟",
+"des": "",
+"lineStyle": {
+"type": "solid"
+}
+}
+]}
