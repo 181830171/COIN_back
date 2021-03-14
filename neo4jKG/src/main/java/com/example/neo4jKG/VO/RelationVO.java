@@ -25,14 +25,14 @@ public class RelationVO {
     }
 
     // 源
-    private String source;
+    private String source="";
 
     // 目标
-    private String target;
+    private String target="";
 
-    private String name;
+    private String name="";
     // description
-    private String des;
+    private String des="";
     // 线的样式
     private LineStyleVO lineStyle;
 

@@ -1,14 +1,11 @@
 package com.example.neo4jKG.Controller;
 
-import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Service.NeoEntityService;
 import com.example.neo4jKG.VO.NeoAndRelationListVO;
 import com.example.neo4jKG.VO.NeoEntityVO;
 import com.example.neo4jKG.VO.RelationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class NeoEntityController {
@@ -31,8 +28,7 @@ public class NeoEntityController {
 
     @RequestMapping(path = "/update", method = RequestMethod.POST)
     public NeoEntityVO updateNeoEntityByEntity(@RequestBody NeoEntityVO neoEntityVO) {
-        return neoEntityService.updateByEntity(neoEntityVO.getId(),neoEntityVO.getName(),neoEntityVO.getX(),neoEntityVO.getY()
-                , neoEntityVO.getDes(), neoEntityVO.getCategory(), neoEntityVO.getSymbolSize());
+        return neoEntityService.updateByEntity(neoEntityVO);
     }
 
     @RequestMapping(path = "/get", method = RequestMethod.GET)
@@ -41,14 +37,16 @@ public class NeoEntityController {
     }
 
     @RequestMapping(path = "/addRelates", method = RequestMethod.POST)
-    public RelationVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid) {
-        NeoEntityVO fromOpt = neoEntityService.findById(from);
-        NeoEntityVO toOpt = neoEntityService.findById(to);
-        if (fromOpt != null && toOpt != null) {
-            return neoEntityService.addIRelates(fromOpt, toOpt, isSolid);
-        } else {
-            return null;
-        }
+    public RelationVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
+                                    @RequestParam(value = "des") String des) {
+//        NeoEntityVO fromOpt = neoEntityService.findById(from);
+//        NeoEntityVO toOpt = neoEntityService.findById(to);
+//        if (fromOpt != null && toOpt != null) {
+//            return neoEntityService.addIRelates(fromOpt, toOpt, isSolid, des);
+//        } else {
+//            return null;
+//        }
+        return neoEntityService.addIRelates(from, to, isSolid, des);
     }
 
     @RequestMapping(path = "/delRelate", method = RequestMethod.GET)
@@ -65,7 +63,7 @@ public class NeoEntityController {
 
     @RequestMapping(path = "/getListAll", method = RequestMethod.GET)
     public NeoAndRelationListVO getListAll(){
-        return null;
+        return neoEntityService.getAllEntitiesAndRelations();
     }
 }
 

@@ -1,11 +1,12 @@
 package com.example.neo4jKG.VO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NeoAndRelationListVO {
-    private int categories;
-    private ArrayList<NeoEntityVO> nodes;
-    private ArrayList<RelationVO> links;
+    private Integer categories;
+    private List<NeoEntityVO> nodes;
+    private List<RelationVO> links;
 
     public NeoAndRelationListVO(){
         categories = 0;
@@ -31,27 +32,27 @@ public class NeoAndRelationListVO {
                 '}';
     }
 
-    public int getCategories() {
+    public Integer getCategories() {
         return categories;
     }
 
-    public void setCategories(int categories) {
+    public void setCategories(Integer categories) {
         this.categories = categories;
     }
 
-    public ArrayList<NeoEntityVO> getNodes() {
+    public List<NeoEntityVO> getNodes() {
         return nodes;
     }
 
-    public void setNodes(ArrayList<NeoEntityVO> nodes) {
+    public void setNodes(List<NeoEntityVO> nodes) {
         this.nodes = nodes;
     }
 
-    public ArrayList<RelationVO> getLinks() {
+    public List<RelationVO> getLinks() {
         return links;
     }
 
-    public void setLinks(ArrayList<RelationVO> links) {
+    public void setLinks(List<RelationVO> links) {
         this.links = links;
     }
 }

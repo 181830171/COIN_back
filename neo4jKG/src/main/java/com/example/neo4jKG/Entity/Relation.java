@@ -23,6 +23,11 @@ public class Relation {
     @Property(name = "name")
     private String name;
 
+    @Property(name = "des")
+    private String des;
+
+    @Property
+    private Boolean isSolid;
     @Override
     public String toString() {
         return "Relate{" +
@@ -43,8 +48,7 @@ public class Relation {
         this.name = name;
     }
 
-    @Property(name = "des")
-    private String des;
+
 
     public String getDes() {
         return des;
@@ -54,8 +58,7 @@ public class Relation {
         this.des = des;
     }
 
-    @Property
-    private boolean isSolid;
+
 
     public Long getRelationshipId() {
         return relationshipId;
@@ -92,10 +95,11 @@ public class Relation {
 
     public Relation(){}
 
-    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid){
+    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid, String des){
         this.relationshipId = id;
         this.from = from;
         this.to = to;
         this.isSolid = isSolid;
+        this.des = des;
     }
 }

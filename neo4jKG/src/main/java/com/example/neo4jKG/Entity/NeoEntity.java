@@ -1,6 +1,5 @@
 package com.example.neo4jKG.Entity;
 
-import com.oracle.webservices.internal.api.message.PropertySet;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
@@ -21,17 +20,17 @@ public class NeoEntity {
     @GeneratedValue
     private Long id;
     @Property(name = "name")
-    private String name;
+    private String name="";
     @Property(name = "des")
-    private String des;
+    private String des="";
     @Property(name = "x")
-    private int x;
+    private Double x= (double) 0.0;
     @Property(name = "y")
-    private int y;
-    @Property(name = "symbolSize")
-    private int symbolSize;
-    @Property(name = "category")
-    private int category;
+    private Double y=0.0;
+    @Property(name = "centerX")
+    private Double centerX = (double) Integer.MIN_VALUE;
+    @Property(name = "centerY")
+    private Double centerY = (double)Integer.MIN_VALUE;
 
     @Override
     public String toString() {
@@ -41,25 +40,48 @@ public class NeoEntity {
                 ", des='" + des + '\'' +
                 ", x=" + x +
                 ", y=" + y +
+                ", centerX=" + centerX +
+                ", centerY=" + centerY +
                 ", symbolSize=" + symbolSize +
                 ", category=" + category +
                 ", relates=" + relates +
                 '}';
     }
 
-    public int getSymbolSize() {
+    public Double getCenterX() {
+        return centerX;
+    }
+
+    public void setCenterX(Double centerX) {
+        this.centerX = centerX;
+    }
+
+    public Double getCenterY() {
+        return centerY;
+    }
+
+    public void setCenterY(Double centerY) {
+        this.centerY = centerY;
+    }
+
+    @Property(name = "symbolSize")
+    private Integer symbolSize;
+    @Property(name = "category")
+    private Integer category;
+
+    public Integer getSymbolSize() {
         return symbolSize;
     }
 
-    public void setSymbolSize(int symbolSize) {
+    public void setSymbolSize(Integer symbolSize) {
         this.symbolSize = symbolSize;
     }
 
-    public int getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
@@ -71,21 +93,23 @@ public class NeoEntity {
         this.des = des;
     }
 
+    public boolean isCenter(){
+        return centerX == x && centerY == y;
+    }
 
-
-    public int getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Double y) {
         this.y = y;
     }
 

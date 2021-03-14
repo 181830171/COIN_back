@@ -24,10 +24,10 @@ public class NeoEntityVO {
         this.id = id;
     }
 
-    private String name;
+    private String name="";
 
     // description
-    private String des;
+    private String des="";
 
     // 半径
     private int symbolSize;
@@ -36,8 +36,8 @@ public class NeoEntityVO {
     private int category;
 
     // 坐标 x, y
-    private int x;
-    private int y;
+    private Double x;
+    private Double y;
 
     public String getName() {
         return name;
@@ -71,19 +71,19 @@ public class NeoEntityVO {
         this.category = category;
     }
 
-    public int getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Double y) {
         this.y = y;
     }
 }

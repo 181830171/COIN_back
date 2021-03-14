@@ -16,11 +16,13 @@ public interface NeoEntityService {
 
     List<NeoEntity> findAll();
 
-    RelationVO addIRelates(NeoEntityVO from, NeoEntityVO to, boolean isSolid);
+    RelationVO addIRelates(Long from, Long to, boolean isSolid, String des);
 
-    NeoEntityVO updateByEntity(Long id, String name, int x, int y, String des, int category, int symbolSize);
+    NeoEntityVO updateByEntity(NeoEntityVO neoEntityVO);
 
     void deleteRelateById(long fromId, long toId);
 
     NeoAndRelationListVO getAllEntitiesAndRelations();
+
+    void clearRepository();
 }
