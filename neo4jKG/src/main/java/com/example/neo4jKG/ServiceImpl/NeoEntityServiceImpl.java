@@ -33,6 +33,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     @Override
     public NeoEntityVO addNeoEntity(NeoEntityVO neoEntityVO) {
 
+        neoEntityVO.setId((long) -1);
         NeoEntity neoEntity = neoEntityRepository.save(transVOAndPOUtil.transNeoEntityVO(neoEntityVO));
         NeoEntityVO neoEntityVORes = transVOAndPOUtil.transNeoEntity(neoEntity);
         neoEntityVORes.setSymbolSize(30);
@@ -55,6 +56,15 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public NeoEntity findByName(String name) {
+        List<NeoEntity> neoEntityList = neoEntityRepository.findByName(name);
+        if(neoEntityList == null || neoEntityList.size()==0){
+            return null;
+        }
+        return neoEntityList.get(0);
     }
 
     @Override

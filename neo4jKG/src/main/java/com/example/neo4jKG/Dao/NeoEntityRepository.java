@@ -27,4 +27,7 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
 //            "UNION" +
 //            " MATCH (t)<-[]-(n) WHERE id(n) = :#{#id} RETURN t")
     List<NeoEntity> findAllRelatedNodes(@Param(value = "id") long id);
+
+    @Query("MATCH (n) WHERE n.name = :#{#name} RETURN n")
+    List<NeoEntity> findByName(@Param(value = "name") String name);
 }

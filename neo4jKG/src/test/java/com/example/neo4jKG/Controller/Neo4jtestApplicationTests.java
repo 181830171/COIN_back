@@ -1,7 +1,5 @@
 package com.example.neo4jKG.Controller;
 
-import com.example.neo4jKG.Entity.NeoEntity;
-
 import com.alibaba.fastjson.JSON;
 import com.example.neo4jKG.Service.NeoEntityService;
 import com.example.neo4jKG.VO.NeoEntityVO;
@@ -44,7 +42,7 @@ class NeoEntityControllerTest {
     @Test
     public void test1() {
         NeoEntityVO test1 = new NeoEntityVO();
-        test1.setId(-1);
+        test1.setId((long) -1);
         test1.setName("test1");
         String test1JsonString = JSON.toJSONString(test1);
 

@@ -1,7 +1,7 @@
 package com.example.neo4jKG.VO;
 
 public class NeoEntityVO {
-    private long id;
+    private Long id;
 
     @Override
     public String toString() {
@@ -16,11 +16,11 @@ public class NeoEntityVO {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,10 +30,10 @@ public class NeoEntityVO {
     private String des="";
 
     // 半径
-    private int symbolSize;
+    private Integer symbolSize;
 
     // 种类(颜色)
-    private int category;
+    private Integer category;
 
     // 坐标 x, y
     private Double x;
@@ -55,19 +55,19 @@ public class NeoEntityVO {
         this.des = des;
     }
 
-    public int getSymbolSize() {
+    public Integer getSymbolSize() {
         return symbolSize;
     }
 
-    public void setSymbolSize(int symbolSize) {
+    public void setSymbolSize(Integer symbolSize) {
         this.symbolSize = symbolSize;
     }
 
-    public int getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
