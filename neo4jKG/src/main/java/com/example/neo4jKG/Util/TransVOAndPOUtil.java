@@ -12,8 +12,9 @@ public class TransVOAndPOUtil {
 
     public NeoEntity transNeoEntityVO(NeoEntityVO neoEntityVO){
         NeoEntity neoEntity = new NeoEntity();
-        neoEntity.setId(neoEntityVO.getId());
+        neoEntity.setId(neoEntityVO.getNodeId());
         neoEntity.setName(neoEntityVO.getName());
+        neoEntity.setDes(neoEntityVO.getDes());
         neoEntity.setX(neoEntityVO.getX());
         neoEntity.setY(neoEntityVO.getY());
         return neoEntity;
@@ -21,7 +22,7 @@ public class TransVOAndPOUtil {
 
     public NeoEntityVO transNeoEntity(NeoEntity neoEntity){
         NeoEntityVO neoEntityVO = new NeoEntityVO();
-        neoEntityVO.setId(neoEntity.getId());
+        neoEntityVO.setNodeId(neoEntity.getId());
         neoEntityVO.setName(neoEntity.getName());
         neoEntityVO.setDes(neoEntity.getDes());
         neoEntityVO.setX(neoEntity.getX());

@@ -1,12 +1,12 @@
 package com.example.neo4jKG.VO;
 
 public class NeoEntityVO {
-    private Long id;
+    private Long nodeId;
 
     @Override
     public String toString() {
         return "NeoEntityVO{" +
-                "id=" + id +
+                "id=" + nodeId +
                 ", name='" + name + '\'' +
                 ", des='" + des + '\'' +
                 ", symbolSize=" + symbolSize +
@@ -16,12 +16,12 @@ public class NeoEntityVO {
                 '}';
     }
 
-    public Long getId() {
-        return id;
+    public Long getNodeId() {
+        return nodeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNodeId(Long nodeId) {
+        this.nodeId = nodeId;
     }
 
     private String name="";

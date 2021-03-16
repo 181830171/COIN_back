@@ -42,7 +42,7 @@ class NeoEntityControllerTest {
     @Test
     public void test1() {
         NeoEntityVO test1 = new NeoEntityVO();
-        test1.setId((long) -1);
+        test1.setNodeId((long) -1);
         test1.setName("test1");
         String test1JsonString = JSON.toJSONString(test1);
 
@@ -84,7 +84,7 @@ class NeoEntityControllerTest {
     public void test4(){
         NeoEntityVO test4 = new NeoEntityVO();
         test4.setName("test_true");
-        test4.setId((long) 23);
+        test4.setNodeId((long) 23);
         test4.setDes("test_des");
         String test4JsonString = JSON.toJSONString(test4);
         try{

@@ -23,10 +23,10 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
     @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
     void deleteByIdCus(@Param(value = "id") long id);
 
-    @Query("MATCH (n)-[]->(t) WHERE id(n) = :#{#id} RETURN t " +"")
-//            "UNION" +
-//            " MATCH (t)<-[]-(n) WHERE id(n) = :#{#id} RETURN t")
-    List<NeoEntity> findAllRelatedNodes(@Param(value = "id") long id);
+//    @Query("MATCH (n)-->(t) WHERE id(n) = $id RETURN t")
+////            "UNION" +
+////            " MATCH (t)<-[]-(n) WHERE id(n) = :#{#id} RETURN t")
+//    List<NeoEntity> findDirRelatedNodes(@Param(value = "id") long id);
 
     @Query("MATCH (n) WHERE n.name = :#{#name} RETURN n")
     List<NeoEntity> findByName(@Param(value = "name") String name);

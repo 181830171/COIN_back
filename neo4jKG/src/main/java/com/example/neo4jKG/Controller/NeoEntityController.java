@@ -4,9 +4,11 @@ import com.example.neo4jKG.Service.NeoEntityService;
 import com.example.neo4jKG.VO.NeoAndRelationListVO;
 import com.example.neo4jKG.VO.NeoEntityVO;
 import com.example.neo4jKG.VO.RelationVO;
+import com.example.neo4jKG.VO.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class NeoEntityController {
 
@@ -14,31 +16,31 @@ public class NeoEntityController {
     private NeoEntityService neoEntityService;
 
     @RequestMapping(path = "/addNeoEntity", method = RequestMethod.POST)
-    public NeoEntityVO addNeoEntity(@RequestBody NeoEntityVO neoEntity) {
-        return neoEntityService.addNeoEntity(neoEntity);
+    public ResponseVO addNeoEntity(@RequestBody NeoEntityVO neoEntity) {
+        return ResponseVO.buildSuccess(neoEntityService.addNeoEntity(neoEntity));
     }
 
     // 删除节点和节点有关的关系
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
-    public int deleteNeoEntityById(@RequestParam(value = "id") long id) {
+    public ResponseVO deleteNeoEntityById(@RequestParam(value = "id") long id) {
         neoEntityService.deleteByIdCus(id);
         System.out.println(id);
-        return 1;
+        return ResponseVO.buildSuccess();
     }
 
     @RequestMapping(path = "/update", method = RequestMethod.POST)
-    public NeoEntityVO updateNeoEntityByEntity(@RequestBody NeoEntityVO neoEntityVO) {
-        return neoEntityService.updateByEntity(neoEntityVO);
+    public ResponseVO updateNeoEntityByEntity(@RequestBody NeoEntityVO neoEntityVO) {
+        return ResponseVO.buildSuccess(neoEntityService.updateByEntity(neoEntityVO));
     }
 
     @RequestMapping(path = "/get", method = RequestMethod.GET)
-    public NeoEntityVO getNeoEntityById(@RequestParam(value = "id") long id) {
-        return neoEntityService.findById(id);
+    public ResponseVO getNeoEntityById(@RequestParam(value = "id") long id) {
+        return ResponseVO.buildSuccess(neoEntityService.findById(id));
     }
 
     @RequestMapping(path = "/addRelates", method = RequestMethod.POST)
-    public RelationVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
-                                    @RequestParam(value = "des") String des) {
+    public ResponseVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
+                                    @RequestParam(value = "des") String des, @RequestParam(value = "name") String name) {
 //        NeoEntityVO fromOpt = neoEntityService.findById(from);
 //        NeoEntityVO toOpt = neoEntityService.findById(to);
 //        if (fromOpt != null && toOpt != null) {
@@ -46,24 +48,24 @@ public class NeoEntityController {
 //        } else {
 //            return null;
 //        }
-        return neoEntityService.addIRelates(from, to, isSolid, des);
+        return ResponseVO.buildSuccess(neoEntityService.addIRelates(from, to, isSolid, des, name));
     }
 
     @RequestMapping(path = "/delRelate", method = RequestMethod.GET)
-    public String deleteRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to){
+    public ResponseVO deleteRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to){
         NeoEntityVO fromOpt = neoEntityService.findById(from);
         NeoEntityVO toOpt = neoEntityService.findById(to);
         if(fromOpt != null && toOpt != null){
             neoEntityService.deleteRelateById(from, to);
-            return "ok";
+            return ResponseVO.buildSuccess();
         }else {
-            return "false";
+            return ResponseVO.buildFailure("FromNode or ToNode does not exist.");
         }
     }
 
     @RequestMapping(path = "/getListAll", method = RequestMethod.GET)
-    public NeoAndRelationListVO getListAll(){
-        return neoEntityService.getAllEntitiesAndRelations();
+    public ResponseVO getListAll(){
+        return ResponseVO.buildSuccess(neoEntityService.getAllEntitiesAndRelations());
     }
 }
 

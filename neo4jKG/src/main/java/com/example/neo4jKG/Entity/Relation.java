@@ -95,11 +95,12 @@ public class Relation {
 
     public Relation(){}
 
-    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid, String des){
+    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid, String des, String name){
         this.relationshipId = id;
         this.from = from;
         this.to = to;
         this.isSolid = isSolid;
         this.des = des;
+        this.name = name;
     }
 }

@@ -18,7 +18,7 @@ public interface NeoEntityService {
 
     List<NeoEntity> findAll();
 
-    RelationVO addIRelates(Long from, Long to, boolean isSolid, String des);
+    RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name);
 
     NeoEntityVO updateByEntity(NeoEntityVO neoEntityVO);
 

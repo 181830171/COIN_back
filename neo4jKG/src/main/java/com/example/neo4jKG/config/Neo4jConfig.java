@@ -5,7 +5,7 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableNeo4jRepositories(basePackages = "com.example.neo4jKG.Dao")
+@EnableNeo4jRepositories(basePackages = {"com.example.neo4jKG"})
 @EnableTransactionManagement
 public class Neo4jConfig {
 }

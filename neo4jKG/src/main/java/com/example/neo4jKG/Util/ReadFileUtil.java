@@ -47,7 +47,7 @@ public class ReadFileUtil {
             String name = neoJson.getString("name");
             String des = neoJson.getString("des");
             NeoEntityVO neoEntityVO = new NeoEntityVO();
-            neoEntityVO.setId((long) -1);
+            neoEntityVO.setNodeId((long) -1);
             neoEntityVO.setName(name);
             neoEntityVO.setDes(des);
             neoEntityService.addNeoEntity(neoEntityVO);
@@ -68,7 +68,7 @@ public class ReadFileUtil {
             boolean isSolid = false;
             if(type.equals("solid"))
                 isSolid = true;
-            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des);
+            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name);
         }
 
         String test_result = JSON.toJSONString(neoEntityService.getAllEntitiesAndRelations());
