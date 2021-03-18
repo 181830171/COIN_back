@@ -16,6 +16,25 @@ public class NeoEntityDriver {
     private final Session session = driver.session();
 
 
+    public void deleteNode(long id){
+        try {
+            String deleteRel = "MATCH (n)-[]-(r) WHERE id(n)=$id DETACH DELETE r"; //删除有关的关系
+            String deleteNode = "MATCH (n) WHERE id(n)=$id DETACH DELETE n"; // 删除该节点
+            session.run(deleteRel,parameters("id",id));
+            session.run(deleteNode,parameters("id",id));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRel(long fromId, long toId){
+        try {
+            String deleteRel = "MATCH (n)-[]-(r)-[]-(t) WHERE id(n)=$fromId AND id(t)=$toId DETACH DELETE r"; //删除有关的关系
+            session.run(deleteRel,parameters("fromId",fromId,"toId",toId));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * 获取该节点指向的所有节点
      * @param id

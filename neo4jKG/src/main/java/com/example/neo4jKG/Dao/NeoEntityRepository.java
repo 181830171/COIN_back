@@ -20,8 +20,8 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
                              @Param(value = "symbolSize") int symbolSize, @Param(value = "centerX") double centerX,
                              @Param(value = "centerY") double centerY);
 
-    @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
-    void deleteByIdCus(@Param(value = "id") long id);
+//    @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
+//    void deleteByIdCus(@Param(value = "id") long id);
 
 //    @Query("MATCH (n)-->(t) WHERE id(n) = $id RETURN t")
 ////            "UNION" +

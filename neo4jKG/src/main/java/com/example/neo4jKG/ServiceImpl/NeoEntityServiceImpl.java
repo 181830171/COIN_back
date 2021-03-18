@@ -49,7 +49,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     @Override
     public void deleteByIdCus(Long id) {
-        neoEntityRepository.deleteByIdCus(id);
+        neoEntityDriver.deleteNode(id);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     @Override
     public void deleteRelateById(long fromId, long toId) {
-        relateRepository.deleteByNodeId(fromId, toId);
+        neoEntityDriver.deleteRel(fromId,toId);
     }
 
 
