@@ -22,9 +22,11 @@ public interface NeoEntityService {
 
     NeoEntityVO updateByEntity(NeoEntityVO neoEntityVO);
 
-    void deleteRelateById(long fromId, long toId);
+    void deleteRelateById(long id);
 
     NeoAndRelationListVO getAllEntitiesAndRelations();
 
     void clearRepository();
+
+    void updateRel(long id, String name);
 }

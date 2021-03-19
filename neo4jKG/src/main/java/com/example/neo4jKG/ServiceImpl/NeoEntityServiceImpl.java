@@ -112,8 +112,8 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
 
     @Override
-    public void deleteRelateById(long fromId, long toId) {
-        neoEntityDriver.deleteRel(fromId,toId);
+    public void deleteRelateById(long id) {
+        neoEntityDriver.deleteRel(id);
     }
 
 
@@ -252,5 +252,10 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     public void clearRepository() {
         neoEntityRepository.deleteAll();
         relateRepository.deleteAll();
+    }
+
+    @Override
+    public void updateRel(long id, String name) {
+        neoEntityDriver.updateRelation(id, name);
     }
 }

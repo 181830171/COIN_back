@@ -52,20 +52,20 @@ public class NeoEntityController {
     }
 
     @RequestMapping(path = "/delRelate", method = RequestMethod.GET)
-    public ResponseVO deleteRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to){
-        NeoEntityVO fromOpt = neoEntityService.findById(from);
-        NeoEntityVO toOpt = neoEntityService.findById(to);
-        if(fromOpt != null && toOpt != null){
-            neoEntityService.deleteRelateById(from, to);
-            return ResponseVO.buildSuccess();
-        }else {
-            return ResponseVO.buildFailure("FromNode or ToNode does not exist.");
-        }
+    public ResponseVO deleteRelateById(@RequestParam(value = "id") long id){
+        neoEntityService.deleteRelateById(id);
+        return ResponseVO.buildSuccess();
     }
 
     @RequestMapping(path = "/getListAll", method = RequestMethod.GET)
     public ResponseVO getListAll(){
         return ResponseVO.buildSuccess(neoEntityService.getAllEntitiesAndRelations());
+    }
+
+    @RequestMapping(path = "/updateRel", method = RequestMethod.GET)
+    public ResponseVO updateRel(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name){
+        neoEntityService.updateRel(id,name);
+        return ResponseVO.buildSuccess();
     }
 }
 
