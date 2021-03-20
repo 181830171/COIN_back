@@ -48,6 +48,15 @@ public class NeoEntityDriver {
         }
     }
 
+
+    public void clearRepository(){
+        String clear = "MATCH (n) DETACH DELETE n";
+        try{
+            session.run(clear);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void deleteRel(long id){
         try {
             String deleteRel = "MATCH (n) WHERE id(n)=$id DETACH DELETE n"; //删除有关的关系

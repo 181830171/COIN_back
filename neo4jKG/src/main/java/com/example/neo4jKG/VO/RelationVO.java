@@ -2,7 +2,7 @@ package com.example.neo4jKG.VO;
 
 public class RelationVO {
 
-    private long id;
+    private Long id;
 
     @Override
     public String toString() {
@@ -16,11 +16,11 @@ public class RelationVO {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -37,8 +37,16 @@ public class TransVOAndPOUtil {
         relationVO.setDes(relation.getDes());
         relationVO.setName(relation.getName());
         relationVO.setId(relation.getRelationshipId());
+        if(relation.getFrom()==null){
+            relationVO.setSource(null);
+        }else {
         relationVO.setSource(relation.getFrom().getName());
-        relationVO.setTarget(relation.getTo().getName());
+        }
+        if(relation.getTo()!=null){
+            relationVO.setTarget(relation.getTo().getName());
+        }else {
+            relationVO.setTarget(null);
+        }
         LineStyleVO lineStyleVO = new LineStyleVO();
         if(relation.isSolid()){
             lineStyleVO.setType("solid");

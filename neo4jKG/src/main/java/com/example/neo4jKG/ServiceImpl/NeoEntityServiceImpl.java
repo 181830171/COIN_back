@@ -102,7 +102,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             centerX = neoEntityReal.getCenterX();
             centerY = neoEntityReal.getCenterY();
         }
-        System.out.println("neoEntityVO:"+neoEntityVO);
+//        System.out.println("neoEntityVO:"+neoEntityVO);
         NeoEntity neoEntity = neoEntityRepository.updateByEntity(neoEntityVO.getNodeId(), neoEntityVO.getName(),
                 neoEntityVO.getX(), neoEntityVO.getY(), neoEntityVO.getDes(),
                 neoEntityVO.getCategory(), neoEntityVO.getSymbolSize(),centerX,centerY);
@@ -122,7 +122,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
         List<NeoEntity> neoEntities = neoEntityRepository.findAll();
         List<Relation> relations = relateRepository.findAll();
-        System.out.println("AllRelations:" + relations);
+//        System.out.println("AllRelations:" + relations);
         // 结果列表
         List<NeoEntityVO> neoEntityVOS = new ArrayList<>();
         List<RelationVO> relationVOS = new ArrayList<>();
@@ -199,8 +199,8 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 continue;
 
             int cnt = relatedNeoEntityList.size();
-            System.out.println("x:"+(baseX) + " y:" + (baseY) + " name: " + neoEntity.getName()+ " id: " + neoEntity.getId()+"\n relatedNodes" +relatedNeoEntityList +
-                    "\n cnt:" + cnt);
+//            System.out.println("x:"+(baseX) + " y:" + (baseY) + " name: " + neoEntity.getName()+ " id: " + neoEntity.getId()+"\n relatedNodes" +relatedNeoEntityList +
+//                    "\n cnt:" + cnt);
             double angleInterval = mathUtil.remainTwoFractions(360.0/cnt);
             double curAngle = angleInterval/2;
             for(NeoEntity relatedNeoEntity:relatedNeoEntityList){
@@ -250,8 +250,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     @Override
     public void clearRepository() {
-        neoEntityRepository.deleteAll();
-        relateRepository.deleteAll();
+        neoEntityDriver.clearRepository();
     }
 
     @Override

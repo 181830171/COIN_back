@@ -81,6 +81,6 @@ public class ReadFileUtil {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("NEOEntitiesAndLinksList: " + test_result);
+//        System.out.println("NEOEntitiesAndLinksList: " + test_result);
     }
 }

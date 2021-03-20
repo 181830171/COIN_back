@@ -101,7 +101,7 @@ class NeoEntityControllerTest {
     public void test5(){
         try{
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/addRelates").contentType(MediaType.TEXT_HTML)
-            .param("from","5").param("to","9").param("isSolid","true").param("des","destest")).andDo(print()).andExpect(status().isOk())
+            .param("from","5").param("to","9").param("isSolid","true").param("des","destest").param("name","test")).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
