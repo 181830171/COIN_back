@@ -112,7 +112,6 @@ public class NeoEntityDriver {
 //        }
 //    }
 
-
     public HashSet<Map<String, Object>> getNodes(Result result) {
         HashSet<Map<String, Object>> nodedatas = new HashSet<Map<String, Object>>();// 存放所有的节点数据
         try  {
