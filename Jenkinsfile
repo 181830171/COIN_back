@@ -17,10 +17,12 @@ pipeline {
        stage('Test') {
             steps {
                 sh 'mvn test'
+                sh './gradlew check'
                 }
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                    junit 'build/reports/**/*.xml'
                     }
             }
        }
