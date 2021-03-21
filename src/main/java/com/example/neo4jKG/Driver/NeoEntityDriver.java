@@ -13,7 +13,7 @@ import static org.neo4j.driver.Values.parameters;
 
 @Component
 public class NeoEntityDriver {
-    Driver driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "toor"));
+    Driver driver = GraphDatabase.driver("bolt://host.docker.internal:7687", AuthTokens.basic("neo4j", "toor"));
     private final Session session = driver.session();
 
 
