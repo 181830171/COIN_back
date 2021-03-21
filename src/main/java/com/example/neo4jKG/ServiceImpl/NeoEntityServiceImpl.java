@@ -34,6 +34,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     @Autowired
     private MathUtil mathUtil;
 
+    /**
+     * 增加新的实体
+     * 调用服务:NeoEntityRepository.save()
+     * @param neoEntityVO
+     * @return
+     */
     @Override
     public NeoEntityVO addNeoEntity(NeoEntityVO neoEntityVO) {
 
@@ -47,11 +53,23 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         return neoEntityVORes;
     }
 
+    /**
+     * 根据id删除节点
+     * 调用服务 neoEntityDriver.deleteNode
+     * @param id
+     */
     @Override
     public void deleteByIdCus(Long id) {
         neoEntityDriver.deleteNode(id);
     }
 
+
+    /**
+     * 根据id查找节点
+     * 调用服务 NeoEntityRepository.findById
+     * @param id
+     * @return
+     */
     @Override
     public NeoEntityVO findById(Long id) {
         Optional<NeoEntity> neoEntity= neoEntityRepository.findById(id);
@@ -62,6 +80,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         }
     }
 
+    /**
+     * 根据名称查找实体
+     * 调用服务 NeoEntityRepository.findByName
+     * @param name
+     * @return
+     */
     @Override
     public NeoEntity findByName(String name) {
         List<NeoEntity> neoEntityList = neoEntityRepository.findByName(name);
@@ -71,11 +95,26 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         return neoEntityList.get(0);
     }
 
+    /**
+     * 查找所有实体
+     * NeoEntityRepository.findAll
+     * @return
+     */
     @Override
     public List<NeoEntity> findAll() {
         return neoEntityRepository.findAll();
     }
 
+    /**
+     * 添加关系
+     * 调用服务 relateRepository.save
+     * @param from
+     * @param to
+     * @param isSolid
+     * @param des
+     * @param name
+     * @return
+     */
     @Override
     public RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name) {
         Optional<NeoEntity> fromOpt = neoEntityRepository.findById(from);
@@ -88,6 +127,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         }
     }
 
+    /**
+     * 更新实体
+     * 调用服务: NeoEntityRepository.updateByEntity
+     * @param neoEntityVO
+     * @return
+     */
     @Override
     public NeoEntityVO updateByEntity(NeoEntityVO neoEntityVO) {
         Optional<NeoEntity> neoEntityOpt = neoEntityRepository.findById(neoEntityVO.getNodeId());
@@ -110,13 +155,25 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     }
 
 
-
+    /**
+     * 根据id删除关系
+     * 调用服务 NeoEntityDriver.deleteRel
+     * @param id
+     */
     @Override
     public void deleteRelateById(long id) {
         neoEntityDriver.deleteRel(id);
     }
 
 
+    /**
+     * 获取所有的实体和关系
+     * 调用服务:
+     * relateRepository.findAll 获取所有的关系
+     * neoEntityDriver.findRelatedNodes 根据id获取相关节点
+     *
+     * @return
+     */
     @Override
     public NeoAndRelationListVO getAllEntitiesAndRelations() {
         NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
@@ -248,11 +305,21 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         return neoAndRelationListVO;
     }
 
+    /**
+     * 清空数据库
+     * 调用服务: neoEntityDriver.clearRepository
+     */
     @Override
     public void clearRepository() {
         neoEntityDriver.clearRepository();
     }
 
+    /**
+     * 根据id更新关系名称
+     * 调用服务: neoEntityDriver.updateRelation
+     * @param id
+     * @param name
+     */
     @Override
     public void updateRel(long id, String name) {
         neoEntityDriver.updateRelation(id, name);
