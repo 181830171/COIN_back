@@ -15,6 +15,7 @@ public class NeoEntityController {
     @Autowired
     private NeoEntityService neoEntityService;
 
+    // 增加实体
     @RequestMapping(path = "/addNeoEntity", method = RequestMethod.POST)
     public ResponseVO addNeoEntity(@RequestBody NeoEntityVO neoEntity) {
         return ResponseVO.buildSuccess(neoEntityService.addNeoEntity(neoEntity));
@@ -28,16 +29,19 @@ public class NeoEntityController {
         return ResponseVO.buildSuccess();
     }
 
+    // 更新实体
     @RequestMapping(path = "/update", method = RequestMethod.POST)
     public ResponseVO updateNeoEntityByEntity(@RequestBody NeoEntityVO neoEntityVO) {
         return ResponseVO.buildSuccess(neoEntityService.updateByEntity(neoEntityVO));
     }
 
+    // 根据id获取实体
     @RequestMapping(path = "/get", method = RequestMethod.GET)
     public ResponseVO getNeoEntityById(@RequestParam(value = "id") long id) {
         return ResponseVO.buildSuccess(neoEntityService.findById(id));
     }
 
+    // 增加关系(根据起始节点和终止节点)
     @RequestMapping(path = "/addRelates", method = RequestMethod.POST)
     public ResponseVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
                                     @RequestParam(value = "des") String des, @RequestParam(value = "name") String name) {
@@ -51,17 +55,20 @@ public class NeoEntityController {
         return ResponseVO.buildSuccess(neoEntityService.addIRelates(from, to, isSolid, des, name));
     }
 
+    // 根据id删除关系
     @RequestMapping(path = "/delRelate", method = RequestMethod.GET)
     public ResponseVO deleteRelateById(@RequestParam(value = "id") long id){
         neoEntityService.deleteRelateById(id);
         return ResponseVO.buildSuccess();
     }
 
+    // 获取所有的实体和关系
     @RequestMapping(path = "/getListAll", method = RequestMethod.GET)
     public ResponseVO getListAll(){
         return ResponseVO.buildSuccess(neoEntityService.getAllEntitiesAndRelations());
     }
 
+    // 根据id更新关系名称
     @RequestMapping(path = "/updateRel", method = RequestMethod.GET)
     public ResponseVO updateRel(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name){
         neoEntityService.updateRel(id,name);
