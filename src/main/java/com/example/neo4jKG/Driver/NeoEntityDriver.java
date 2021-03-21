@@ -15,8 +15,6 @@ import static org.neo4j.driver.Values.parameters;
 public class NeoEntityDriver {
     Driver driver = GraphDatabase.driver("bolt://host.docker.internal:7687", AuthTokens.basic("neo4j", "toor"));
     private final Session session = driver.session();
-
-
     public void updateRelation(long id, String name){
         HashSet<Map<String, Object>> nodes;
         Relation relation = new Relation();
