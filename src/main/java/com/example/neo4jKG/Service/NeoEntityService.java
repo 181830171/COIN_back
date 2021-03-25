@@ -1,9 +1,7 @@
 package com.example.neo4jKG.Service;
 
 import com.example.neo4jKG.Entity.NeoEntity;
-import com.example.neo4jKG.VO.NeoAndRelationListVO;
-import com.example.neo4jKG.VO.NeoEntityVO;
-import com.example.neo4jKG.VO.RelationVO;
+import com.example.neo4jKG.VO.*;
 
 import java.util.List;
 
@@ -40,4 +38,10 @@ public interface NeoEntityService {
 
     // 更新关系
     void updateRel(long id, String name);
+
+    //添加节点类型
+    CategoryVO addCategory(String name,String color,String symbol);
+
+    //更新节点类型
+    ResponseVO updateCategory(long id, String name, String color, String symbol);
 }

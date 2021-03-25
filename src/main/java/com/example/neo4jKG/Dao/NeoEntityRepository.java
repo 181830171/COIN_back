@@ -2,7 +2,6 @@ package com.example.neo4jKG.Dao;
 
 import com.example.neo4jKG.Entity.NeoEntity;
 
-import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 import org.springframework.data.neo4j.repository.query.Query;

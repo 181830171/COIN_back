@@ -1,10 +1,7 @@
 package com.example.neo4jKG.Controller;
 
 import com.example.neo4jKG.Service.NeoEntityService;
-import com.example.neo4jKG.VO.NeoAndRelationListVO;
-import com.example.neo4jKG.VO.NeoEntityVO;
-import com.example.neo4jKG.VO.RelationVO;
-import com.example.neo4jKG.VO.ResponseVO;
+import com.example.neo4jKG.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,13 +42,6 @@ public class NeoEntityController {
     @RequestMapping(path = "/addRelates", method = RequestMethod.POST)
     public ResponseVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
                                     @RequestParam(value = "des") String des, @RequestParam(value = "name") String name) {
-//        NeoEntityVO fromOpt = neoEntityService.findById(from);
-//        NeoEntityVO toOpt = neoEntityService.findById(to);
-//        if (fromOpt != null && toOpt != null) {
-//            return neoEntityService.addIRelates(fromOpt, toOpt, isSolid, des);
-//        } else {
-//            return null;
-//        }
         return ResponseVO.buildSuccess(neoEntityService.addIRelates(from, to, isSolid, des, name));
     }
 
@@ -73,6 +63,22 @@ public class NeoEntityController {
     public ResponseVO updateRel(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name){
         neoEntityService.updateRel(id,name);
         return ResponseVO.buildSuccess();
+    }
+
+    //添加节点类型
+    @RequestMapping(path = "/addCategory",method = RequestMethod.POST)
+    public ResponseVO addCategory(@RequestParam(value = "name") String name, @RequestParam(value = "color") String color,
+                                  @RequestParam(value = "symbol") String symbol){
+        return ResponseVO.buildSuccess(neoEntityService.addCategory(name,color,symbol));
+    }
+
+    // 修改类型
+    @RequestMapping(path = "/updateCategory", method = RequestMethod.POST)
+    public ResponseVO updateCategory(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name,
+                                     @RequestParam(value = "color") String color,
+                                     @RequestParam(value = "symbol") String symbol) {
+        //此处由neoEntityService决定返回buildSuccess或是failure
+        return neoEntityService.updateCategory(id,name,color,symbol);
     }
 }
 

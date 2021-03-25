@@ -1,7 +1,10 @@
 package com.example.neo4jKG.Controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.neo4jKG.Entity.Category;
 import com.example.neo4jKG.Service.NeoEntityService;
+import com.example.neo4jKG.VO.CategoryVO;
+import com.example.neo4jKG.VO.ItemStyleVO;
 import com.example.neo4jKG.VO.NeoEntityVO;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -115,6 +118,34 @@ class NeoEntityControllerTest {
         try {
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/getListAll").contentType(MediaType.TEXT_HTML))
                     .andDo(print()).andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    // 增加类型
+    @Test
+    public void test7() {
+        try{
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/addCategory")
+                    .contentType(MediaType.TEXT_HTML)
+                    .param("name","category1").param("color","#ee6666").param("symbol","circle")).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //修改类型
+    @Test
+    public void test8(){
+        try{
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/updateCategory")
+                    .contentType(MediaType.TEXT_HTML).param("id","98")
+                    .param("name","category1").param("color","#ee6666").param("symbol","circle")).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
             e.printStackTrace();

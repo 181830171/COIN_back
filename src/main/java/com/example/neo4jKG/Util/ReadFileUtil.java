@@ -2,6 +2,8 @@ package com.example.neo4jKG.Util;
 
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Service.NeoEntityService;
+import com.example.neo4jKG.VO.CategoryVO;
+import com.example.neo4jKG.VO.ItemStyleVO;
 import com.example.neo4jKG.VO.NeoEntityVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -39,9 +41,11 @@ public class ReadFileUtil {
 
         JSONArray neoEntities;
         JSONArray links;
+        JSONArray categories;
 
         neoEntities = (JSONArray) JSONObject.fromObject(allStrings).get("data");
         links = (JSONArray)JSONObject.fromObject(allStrings).get("links");
+        categories= (JSONArray)JSONObject.fromObject(allStrings).get("categories");
         for(int i=0; i < neoEntities.size();i++){
             JSONObject neoJson = JSONObject.fromObject(neoEntities.getString(i));
             String name = neoJson.getString("name");
@@ -70,6 +74,15 @@ public class ReadFileUtil {
                 isSolid = true;
             neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name);
         }
+
+        for(int i=0; i < categories.size();i++){
+            JSONObject categoryJson = JSONObject.fromObject(categories.getString(i));
+            String name = categoryJson.getString("name");
+            String symbol = categoryJson.getString("symbol");
+            String color=JSONObject.fromObject(categoryJson.getString("itemStyle")).getString("color");
+            neoEntityService.addCategory(name,color,symbol);
+        }
+
 
         String test_result = JSON.toJSONString(neoEntityService.getAllEntitiesAndRelations());
         try{

@@ -1,10 +1,9 @@
 package com.example.neo4jKG.Util;
 
+import com.example.neo4jKG.Entity.Category;
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Entity.Relation;
-import com.example.neo4jKG.VO.LineStyleVO;
-import com.example.neo4jKG.VO.NeoEntityVO;
-import com.example.neo4jKG.VO.RelationVO;
+import com.example.neo4jKG.VO.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -55,5 +54,23 @@ public class TransVOAndPOUtil {
         }
         relationVO.setLineStyle(lineStyleVO);
         return relationVO;
+    }
+
+    public CategoryVO transCategory(Category category){
+        CategoryVO categoryVO=new CategoryVO();
+        categoryVO.setCategoryId(category.getId());
+        categoryVO.setName(category.getName());
+        categoryVO.setSymbol(category.getSymbol());
+        categoryVO.setItemStyle(new ItemStyleVO(category.getColor()));
+        return categoryVO;
+    }
+
+    public Category transCategoryVO(CategoryVO categoryVO){
+        Category category=new Category();
+        category.setId(categoryVO.getCategoryId());
+        category.setColor(categoryVO.getItemStyle().getColor());
+        category.setName(categoryVO.getName());
+        category.setSymbol(categoryVO.getSymbol());
+        return category;
     }
 }
