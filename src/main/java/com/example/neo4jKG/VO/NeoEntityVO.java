@@ -3,19 +3,6 @@ package com.example.neo4jKG.VO;
 public class NeoEntityVO {
     private Long nodeId;
 
-    @Override
-    public String toString() {
-        return "NeoEntityVO{" +
-                "id=" + nodeId +
-                ", name='" + name + '\'' +
-                ", des='" + des + '\'' +
-                ", symbolSize=" + symbolSize +
-                ", category=" + category +
-                ", x=" + x +
-                ", y=" + y +
-                '}';
-    }
-
     public Long getNodeId() {
         return nodeId;
     }
@@ -38,6 +25,31 @@ public class NeoEntityVO {
     // 坐标 x, y
     private Double x;
     private Double y;
+
+    // 形状
+    private String symbol="circle";
+
+    @Override
+    public String toString() {
+        return "NeoEntityVO{" +
+                "nodeId=" + nodeId +
+                ", name='" + name + '\'' +
+                ", des='" + des + '\'' +
+                ", symbolSize=" + symbolSize +
+                ", category=" + category +
+                ", x=" + x +
+                ", y=" + y +
+                ", symbol='" + symbol + '\'' +
+                '}';
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
     public String getName() {
         return name;
