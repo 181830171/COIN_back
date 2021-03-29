@@ -3,7 +3,7 @@ package com.example.neo4jKG.VO;
 public class CategoryVO {
     private Long categoryId;
     private String name="";
-    private String symbol="";
+   // private String symbol="";
     private ItemStyleVO itemStyle;
 
     @Override
@@ -11,7 +11,6 @@ public class CategoryVO {
         return "CategoryVO{" +
                 "id="+categoryId+
                 ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
                 ", itemStyle='" + itemStyle +
                 '}';
     }
@@ -24,10 +23,6 @@ public class CategoryVO {
         return name;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
     public ItemStyleVO getItemStyle() {
         return itemStyle;
     }
@@ -38,10 +33,6 @@ public class CategoryVO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public void setItemStyle(ItemStyleVO itemStyle) {

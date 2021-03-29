@@ -13,11 +13,12 @@ import java.util.List;
 @Repository
 public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
     @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.name = :#{#name}, n.x = :#{#x}, n.y = :#{#y}, n.des = :#{#des}, " +
-            "n.category= :#{#category}, n.symbolSize = :#{#symbolSize}, n.centerX = :#{#centerX}, n.centerY = :#{#centerY} RETURN n")
+            "n.category= :#{#category}, n.symbolSize = :#{#symbolSize}, n.centerX = :#{#centerX}, n.centerY = :#{#centerY}," +
+            "n.symbol= :#{#symbol} RETURN n")
     NeoEntity updateByEntity(@Param(value = "id") Long id, @Param(value = "name") String name, @Param(value = "x") double x,
                              @Param(value = "y") double y, @Param(value = "des") String des, @Param(value = "category") int category,
                              @Param(value = "symbolSize") int symbolSize, @Param(value = "centerX") double centerX,
-                             @Param(value = "centerY") double centerY);
+                             @Param(value = "centerY") double centerY,@Param(value = "symbol") String symbol);
 
 //    @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
 //    void deleteByIdCus(@Param(value = "id") long id);

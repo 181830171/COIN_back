@@ -54,6 +54,7 @@ public class ReadFileUtil {
             neoEntityVO.setNodeId((long) -1);
             neoEntityVO.setName(name);
             neoEntityVO.setDes(des);
+            neoEntityVO.setSymbol("circle");
             neoEntityService.addNeoEntity(neoEntityVO);
         }
 
@@ -64,6 +65,7 @@ public class ReadFileUtil {
             String name = relationJson.getString("name");
             String des = relationJson.getString("des");
             String type = JSONObject.fromObject(relationJson.getString("lineStyle")).getString("type");
+            String[] symbol={"pin","arrow"};
             NeoEntity fromEntity = neoEntityService.findByName(source);
             NeoEntity toEntity = neoEntityService.findByName(target);
             if(fromEntity == null || toEntity == null){
@@ -72,15 +74,14 @@ public class ReadFileUtil {
             boolean isSolid = false;
             if(type.equals("solid"))
                 isSolid = true;
-            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name);
+            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name,symbol);
         }
 
         for(int i=0; i < categories.size();i++){
             JSONObject categoryJson = JSONObject.fromObject(categories.getString(i));
             String name = categoryJson.getString("name");
-            String symbol = categoryJson.getString("symbol");
             String color=JSONObject.fromObject(categoryJson.getString("itemStyle")).getString("color");
-            neoEntityService.addCategory(name,color,symbol);
+            neoEntityService.addCategory(name,color);
         }
 
 
@@ -94,6 +95,5 @@ public class ReadFileUtil {
         }catch (Exception e){
             e.printStackTrace();
         }
-//        System.out.println("NEOEntitiesAndLinksList: " + test_result);
     }
 }

@@ -13,7 +13,7 @@ import static org.neo4j.driver.Values.parameters;
 
 @Component
 public class NeoEntityDriver {
-    Driver driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "toor"));
+    Driver driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "root"));
     private final Session session = driver.session();
     public void updateRelation(long id, String name){
         HashSet<Map<String, Object>> nodes;
@@ -29,6 +29,24 @@ public class NeoEntityDriver {
 //
 //                break;
 //            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateRelType(long id, String type){
+        try {
+            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.type=$type RETURN r as node";
+            session.run(updateRel,parameters("id",id,"type",type));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateRelSymbol(long id, String[] symbol){
+        try {
+            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.symbolFrom=$symbolFom, r.symbolTo=$symbolTo RETURN r as node";
+            session.run(updateRel,parameters("id",id,"symbolFrom",symbol[0],"symbolTo",symbol[1]));
         }catch (Exception e){
             e.printStackTrace();
         }

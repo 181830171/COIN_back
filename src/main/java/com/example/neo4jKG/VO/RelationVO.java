@@ -33,8 +33,12 @@ public class RelationVO {
     private String name="";
     // description
     private String des="";
+
     // 线的样式
     private LineStyleVO lineStyle;
+
+    //线的两端是否有箭头
+    private String[] symbol={"pin","arrow"};
 
     public String getSource() {
         return source;
@@ -76,5 +80,13 @@ public class RelationVO {
         this.lineStyle = lineStyle;
     }
 
+
+    public String[] getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String[] symbol) {
+        this.symbol = symbol;
+    }
 
 }

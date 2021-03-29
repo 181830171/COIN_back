@@ -28,6 +28,14 @@ public class Relation {
 
     @Property
     private Boolean isSolid;
+
+    //线的两端是否有箭头
+    @Property
+    private String symbolFrom="pin";
+
+    @Property
+    private String symbolTo="arrow";
+
     @Override
     public String toString() {
         return "Relate{" +
@@ -37,6 +45,7 @@ public class Relation {
                 ", name='" + name + '\'' +
                 ", des='" + des + '\'' +
                 ", isSolid=" + isSolid +
+                ", symbol='" +symbolFrom+"','"+symbolTo+
                 '}';
     }
 
@@ -92,15 +101,41 @@ public class Relation {
         this.to = to;
     }
 
+    public String getSymbolFrom() {
+        return symbolFrom;
+    }
+
+    public void setSymbolFrom(String symbolFrom) {
+        this.symbolFrom = symbolFrom;
+    }
+
+    public String getSymbolTo() {
+        return symbolTo;
+    }
+
+    public void setSymbolTo(String symbolTo) {
+        this.symbolTo = symbolTo;
+    }
+
+
+
 
     public Relation(){}
 
-    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid, String des, String name){
+    public Relation(Long id, NeoEntity from, NeoEntity to, boolean isSolid, String des, String name,String[] symbol){
         this.relationshipId = id;
         this.from = from;
         this.to = to;
         this.isSolid = isSolid;
         this.des = des;
         this.name = name;
+        if(symbol==null){
+            this.symbolFrom="circle";
+            this.symbolTo="arrow";
+        }
+        else{
+            this.symbolFrom=symbol[0];
+            this.symbolTo=symbol[1];
+        }
     }
 }

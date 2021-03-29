@@ -119,11 +119,11 @@ public class NeoEntityServiceImpl implements NeoEntityService {
      * @return
      */
     @Override
-    public RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name) {
+    public RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name, String[] symbol) {
         Optional<NeoEntity> fromOpt = neoEntityRepository.findById(from);
         Optional<NeoEntity> toOpt = neoEntityRepository.findById(to);
         if(fromOpt.isPresent() && fromOpt.get().getId().equals(from) && toOpt.isPresent() && toOpt.get().getId().equals(to)){
-            Relation newRelation = new Relation(-1L,fromOpt.get(),toOpt.get(),isSolid, des, name);
+            Relation newRelation = new Relation(-1L,fromOpt.get(),toOpt.get(),isSolid, des, name,symbol);
             return transVOAndPOUtil.transRelation(relateRepository.save(newRelation));
         }else {
             return null;
@@ -153,7 +153,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 //        System.out.println("neoEntityVO:"+neoEntityVO);
         NeoEntity neoEntity = neoEntityRepository.updateByEntity(neoEntityVO.getNodeId(), neoEntityVO.getName(),
                 neoEntityVO.getX(), neoEntityVO.getY(), neoEntityVO.getDes(),
-                neoEntityVO.getCategory(), neoEntityVO.getSymbolSize(),centerX,centerY);
+                neoEntityVO.getCategory(), neoEntityVO.getSymbolSize(),centerX,centerY,neoEntityVO.getSymbol());
         return transVOAndPOUtil.transNeoEntity(neoEntity);
     }
 
@@ -337,18 +337,49 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     }
 
     /**
+     * 修改关系的虚实线
+     * @param id,isSolid
+     * @return
+     */
+    @Override
+    public ResponseVO updateRelType(long id,String type){
+        Optional<Relation> relationOpt = relateRepository.findById(id);
+        if(!relationOpt.isPresent()) {
+            return ResponseVO.buildFailure("关系不存在");
+        }
+
+        neoEntityDriver.updateRelType(id,type);
+
+        return ResponseVO.buildSuccess();
+    }
+
+    /**
+     * 修改关系的两端形状
+     * @param id,symbol
+     * @return
+     */
+    @Override
+    public ResponseVO updateRelSymbol(long id,String[] symbol){
+        Optional<Relation> relationOpt = relateRepository.findById(id);
+        if(!relationOpt.isPresent()) {
+            return ResponseVO.buildFailure("关系不存在");
+        }
+        neoEntityDriver.updateRelSymbol(id,symbol);
+        return ResponseVO.buildSuccess();
+    }
+
+    /**
      * 增加新的节点类型
      * 调用CategoryRepository.save()
      * @param name,color,symbol
      * @return
      */
     @Override
-    public CategoryVO addCategory(String name,String color,String symbol){
+    public CategoryVO addCategory(String name,String color){
         CategoryVO categoryVO=new CategoryVO();
         categoryVO.setCategoryId((long) -1);
         categoryVO.setName(name);
         categoryVO.setItemStyle(new ItemStyleVO(color));
-        categoryVO.setSymbol(symbol);
         Category category=categoryRepository.save(transVOAndPOUtil.transCategoryVO(categoryVO));
         return transVOAndPOUtil.transCategory(category);
     }
@@ -360,14 +391,13 @@ public class NeoEntityServiceImpl implements NeoEntityService {
      * @return
      */
     @Override
-    public ResponseVO updateCategory(long id,String name,String color,String symbol){
+    public ResponseVO updateCategory(long id,String name,String color){
         Optional<Category> categoryOpt = categoryRepository.findById(id);
         if(!categoryOpt.isPresent()) {
             return ResponseVO.buildFailure("类型不存在");
         }
 
-        Category category=categoryRepository.updateCategory(id, name,
-                color,symbol);
+        Category category=categoryRepository.updateCategory(id, name, color);
         return ResponseVO.buildSuccess(transVOAndPOUtil.transCategory(category));
     }
 }
