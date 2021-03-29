@@ -1,4 +1,27 @@
-{"data": [{
+{"categories": [
+  {
+    "name": "类型1",
+    "symbol": "circle",
+    "itemStyle": {
+      "color": "#5470c6"
+    }
+  },
+  {
+    "name": "类型2",
+    "symbol": "diamond",
+    "itemStyle": {
+      "color": "#91cc75"
+    }
+  },
+  {
+    "name": "类型3",
+    "symbol": "roundRect",
+    "itemStyle": {
+      "color": "#fac858"
+    }
+  }
+],
+  "data": [{
 "name": "贾家",
 "des": ""
 }, {

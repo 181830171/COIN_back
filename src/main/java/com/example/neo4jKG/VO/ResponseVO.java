@@ -19,6 +19,7 @@ public class ResponseVO {
 
     public static ResponseVO buildSuccess(){
         ResponseVO response=new ResponseVO();
+        response.setContent("not null");
         response.setSuccess(true);
         return response;
     }

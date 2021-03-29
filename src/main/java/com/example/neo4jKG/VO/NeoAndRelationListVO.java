@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NeoAndRelationListVO {
-    private Integer categories;
+    private List<CategoryVO> categories;
     private List<NeoEntityVO> nodes;
     private List<RelationVO> links;
 
     public NeoAndRelationListVO(){
-        categories = 0;
+        categories = new ArrayList<>();
         nodes = new ArrayList<>();
         links = new ArrayList<>();
     }
@@ -32,11 +32,11 @@ public class NeoAndRelationListVO {
                 '}';
     }
 
-    public Integer getCategories() {
+    public List<CategoryVO> getCategories() {
         return categories;
     }
 
-    public void setCategories(Integer categories) {
+    public void setCategories(List<CategoryVO> categories) {
         this.categories = categories;
     }
 

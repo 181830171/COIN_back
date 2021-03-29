@@ -1,16 +1,16 @@
 package com.example.neo4jKG.ServiceImpl;
 
+import com.example.neo4jKG.Dao.CategoryRepository;
 import com.example.neo4jKG.Dao.NeoEntityRepository;
 import com.example.neo4jKG.Dao.RelateRepository;
 import com.example.neo4jKG.Driver.NeoEntityDriver;
+import com.example.neo4jKG.Entity.Category;
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Entity.Relation;
 import com.example.neo4jKG.Service.NeoEntityService;
 import com.example.neo4jKG.Util.MathUtil;
 import com.example.neo4jKG.Util.TransVOAndPOUtil;
-import com.example.neo4jKG.VO.NeoAndRelationListVO;
-import com.example.neo4jKG.VO.NeoEntityVO;
-import com.example.neo4jKG.VO.RelationVO;
+import com.example.neo4jKG.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,9 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     @Autowired
     private RelateRepository relateRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private NeoEntityDriver neoEntityDriver;
@@ -179,10 +182,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
         List<NeoEntity> neoEntities = neoEntityRepository.findAll();
         List<Relation> relations = relateRepository.findAll();
+        List<Category> categories= categoryRepository.findAll();
 //        System.out.println("AllRelations:" + relations);
         // 结果列表
         List<NeoEntityVO> neoEntityVOS = new ArrayList<>();
         List<RelationVO> relationVOS = new ArrayList<>();
+        List<CategoryVO> categoryVOS=new ArrayList<>();
 
         /* 决定点的半径和种类
         将半径定在30-70之间
@@ -280,6 +285,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             baseY += mathUtil.remainTwoFractions(Math.random()*4-2);
         }
 
+        for(Category category:categories){
+            CategoryVO categoryVO=transVOAndPOUtil.transCategory(category);
+            categoryVOS.add(categoryVO);
+
+        }
+
         for(NeoEntity neoEntity:neoEntities){
             NeoEntityVO neoEntityVO = transVOAndPOUtil.transNeoEntity(neoEntity);
             neoEntityVOS.add(neoEntityVO);
@@ -291,15 +302,15 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         }
 
         // 统计有多少个种类
-        List<Integer> categories = new ArrayList<>();
-        int cnt = 0;
-        for(NeoEntityVO neoEntityVO:neoEntityVOS){
-            if(!categories.contains(neoEntityVO.getCategory())){
-                categories.add(neoEntityVO.getCategory());
-                cnt++;
-            }
-        }
-        neoAndRelationListVO.setCategories(cnt);
+//        List<Integer> categories = new ArrayList<>();
+//        int cnt = 0;
+//        for(NeoEntityVO neoEntityVO:neoEntityVOS){
+//            if(!categories.contains(neoEntityVO.getCategory())){
+//                categories.add(neoEntityVO.getCategory());
+//                cnt++;
+//            }
+//        }
+        neoAndRelationListVO.setCategories(categoryVOS);
         neoAndRelationListVO.setLinks(relationVOS);
         neoAndRelationListVO.setNodes(neoEntityVOS);
         return neoAndRelationListVO;
@@ -323,5 +334,40 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     @Override
     public void updateRel(long id, String name) {
         neoEntityDriver.updateRelation(id, name);
+    }
+
+    /**
+     * 增加新的节点类型
+     * 调用CategoryRepository.save()
+     * @param name,color,symbol
+     * @return
+     */
+    @Override
+    public CategoryVO addCategory(String name,String color,String symbol){
+        CategoryVO categoryVO=new CategoryVO();
+        categoryVO.setCategoryId((long) -1);
+        categoryVO.setName(name);
+        categoryVO.setItemStyle(new ItemStyleVO(color));
+        categoryVO.setSymbol(symbol);
+        Category category=categoryRepository.save(transVOAndPOUtil.transCategoryVO(categoryVO));
+        return transVOAndPOUtil.transCategory(category);
+    }
+
+    /**
+     * 修改节点类型
+     * 调用CategoryRepository.updateCategory()
+     * @param id,name,color,symbol
+     * @return
+     */
+    @Override
+    public ResponseVO updateCategory(long id,String name,String color,String symbol){
+        Optional<Category> categoryOpt = categoryRepository.findById(id);
+        if(!categoryOpt.isPresent()) {
+            return ResponseVO.buildFailure("类型不存在");
+        }
+
+        Category category=categoryRepository.updateCategory(id, name,
+                color,symbol);
+        return ResponseVO.buildSuccess(transVOAndPOUtil.transCategory(category));
     }
 }

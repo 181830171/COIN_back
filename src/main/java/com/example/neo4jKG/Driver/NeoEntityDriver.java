@@ -86,7 +86,7 @@ public class NeoEntityDriver {
         List<NeoEntity> resNodes = new ArrayList<>();
         for(Map<String, Object> node: nodes){
             NeoEntity neoEntity = new NeoEntity();
-            neoEntity.setId((Long) (node.get("nodeid")));
+            neoEntity.setId((Long) (node.get("nodeId")));
             neoEntity.setDes((String)(node.get("des")));
             neoEntity.setCenterX((Double) (node.get("centerX")));
             neoEntity.setCenterY((Double) (node.get("centerY")));
@@ -125,7 +125,7 @@ public class NeoEntityDriver {
                 for(String key:data.keySet()){
                     resultData.put(key,data.get(key));
                 }
-                resultData.put("nodeid",node.id());
+                resultData.put("nodeId",node.id());
                 nodedatas.add(resultData);
             }
 
