@@ -22,7 +22,7 @@ public interface NeoEntityService {
     List<NeoEntity> findAll();
 
     // 添加新的关系
-    RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name);
+    RelationVO addIRelates(Long from, Long to, boolean isSolid, String des, String name,String[] symbol);
 
     // 更新实体
     NeoEntityVO updateByEntity(NeoEntityVO neoEntityVO);
@@ -36,12 +36,18 @@ public interface NeoEntityService {
     // 清空数据库
     void clearRepository();
 
-    // 更新关系
+    // 更新关系名称
     void updateRel(long id, String name);
 
+    // 修改关系虚实线
+    ResponseVO updateRelType(long id,String type);
+
+    // 修改关系虚实线
+    ResponseVO updateRelSymbol(long id,String[] symbol);
+
     //添加节点类型
-    CategoryVO addCategory(String name,String color,String symbol);
+    CategoryVO addCategory(String name,String color);
 
     //更新节点类型
-    ResponseVO updateCategory(long id, String name, String color, String symbol);
+    ResponseVO updateCategory(long id, String name, String color);
 }

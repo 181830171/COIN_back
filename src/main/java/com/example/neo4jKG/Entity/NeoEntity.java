@@ -79,8 +79,9 @@ public class NeoEntity {
 
     @Property(name = "symbolSize")
     private Integer symbolSize;
-    @Property(name = "category")
 
+
+    @Property(name = "category")
     private Integer category;
 
     public Integer getSymbolSize() {

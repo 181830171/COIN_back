@@ -130,7 +130,7 @@ class NeoEntityControllerTest {
         try{
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/addCategory")
                     .contentType(MediaType.TEXT_HTML)
-                    .param("name","category1").param("color","#ee6666").param("symbol","circle")).andDo(print()).andExpect(status().isOk())
+                    .param("name","category1").param("color","#ee6666")).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
@@ -144,12 +144,42 @@ class NeoEntityControllerTest {
         try{
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/updateCategory")
                     .contentType(MediaType.TEXT_HTML).param("id","98")
-                    .param("name","category1").param("color","#ee6666").param("symbol","circle")).andDo(print()).andExpect(status().isOk())
+                    .param("name","category1").param("color","#ee6666")).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+    //修改关系虚实线
+    @Test
+    public void test9(){
+        try{
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/updateRelType")
+                    .contentType(MediaType.TEXT_HTML).param("id","2")
+                    .param("type","solid")).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //修改关系两端形状
+    @Test
+    public void test10(){
+        try{
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/updateRelSymbol")
+                    .contentType(MediaType.TEXT_HTML).param("id","2")
+                    .param("symbol", new String[]{"arrow", "pin"})).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

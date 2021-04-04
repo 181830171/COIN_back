@@ -14,8 +14,8 @@ public class Category {
     @Property(name="name")
     private String name;
 
-    @Property(name="symbol")
-    private String symbol;
+//    @Property(name="symbol")
+//    private String symbol;
 
     @Property(name="color")
     private String color;
@@ -25,7 +25,7 @@ public class Category {
         return "Category{" +
                 "id="+id+
                 ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
+              //  ", symbol='" + symbol + '\'' +
                 ", color='" + color +'\''+
                 '}';
     }
@@ -46,13 +46,13 @@ public class Category {
         this.name = name;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+//    public String getSymbol() {
+//        return symbol;
+//    }
+//
+//    public void setSymbol(String symbol) {
+//        this.symbol = symbol;
+//    }
 
     public String getColor() {
         return color;

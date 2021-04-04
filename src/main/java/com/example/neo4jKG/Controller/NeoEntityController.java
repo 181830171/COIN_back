@@ -41,8 +41,8 @@ public class NeoEntityController {
     // 增加关系(根据起始节点和终止节点)
     @RequestMapping(path = "/addRelates", method = RequestMethod.POST)
     public ResponseVO addRelateById(@RequestParam(value = "from") long from, @RequestParam(value = "to") long to, @RequestParam(value = "isSolid") boolean isSolid,
-                                    @RequestParam(value = "des") String des, @RequestParam(value = "name") String name) {
-        return ResponseVO.buildSuccess(neoEntityService.addIRelates(from, to, isSolid, des, name));
+                                    @RequestParam(value = "des") String des, @RequestParam(value = "name") String name, @RequestParam(value = "symbol") String[] symbol) {
+        return ResponseVO.buildSuccess(neoEntityService.addIRelates(from, to, isSolid, des, name,symbol));
     }
 
     // 根据id删除关系
@@ -65,20 +65,30 @@ public class NeoEntityController {
         return ResponseVO.buildSuccess();
     }
 
+    //根据id修改关系的虚实线
+    @RequestMapping(path = "/updateRelType", method = RequestMethod.GET)
+    public ResponseVO updateRelType(@RequestParam(value = "id") long id, @RequestParam(value = "type") String type){
+        return neoEntityService.updateRelType(id,type);
+    }
+
+    //根据id修改关系两端的形状
+    @RequestMapping(path = "/updateRelSymbol", method = RequestMethod.GET)
+    public ResponseVO updateRelSymbol(@RequestParam(value = "id") long id, @RequestParam(value = "symbol") String[] symbol){
+        return neoEntityService.updateRelSymbol(id,symbol);
+    }
+
     //添加节点类型
     @RequestMapping(path = "/addCategory",method = RequestMethod.POST)
-    public ResponseVO addCategory(@RequestParam(value = "name") String name, @RequestParam(value = "color") String color,
-                                  @RequestParam(value = "symbol") String symbol){
-        return ResponseVO.buildSuccess(neoEntityService.addCategory(name,color,symbol));
+    public ResponseVO addCategory(@RequestParam(value = "name") String name, @RequestParam(value = "color") String color){
+        return ResponseVO.buildSuccess(neoEntityService.addCategory(name,color));
     }
 
     // 修改类型
     @RequestMapping(path = "/updateCategory", method = RequestMethod.POST)
     public ResponseVO updateCategory(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name,
-                                     @RequestParam(value = "color") String color,
-                                     @RequestParam(value = "symbol") String symbol) {
+                                     @RequestParam(value = "color") String color) {
         //此处由neoEntityService决定返回buildSuccess或是failure
-        return neoEntityService.updateCategory(id,name,color,symbol);
+        return neoEntityService.updateCategory(id,name,color);
     }
 }
 
