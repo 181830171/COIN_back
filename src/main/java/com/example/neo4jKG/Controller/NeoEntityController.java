@@ -5,7 +5,9 @@ import com.example.neo4jKG.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+import java.util.Map;
+
+@CrossOrigin(origins ="*",maxAge = 3600)
 @RestController
 public class NeoEntityController {
 
@@ -79,16 +81,15 @@ public class NeoEntityController {
 
     //添加节点类型
     @RequestMapping(path = "/addCategory",method = RequestMethod.POST)
-    public ResponseVO addCategory(@RequestParam(value = "name") String name, @RequestParam(value = "color") String color){
-        return ResponseVO.buildSuccess(neoEntityService.addCategory(name,color));
+    public ResponseVO addCategory(@RequestBody Map<String, Object> params){
+        return ResponseVO.buildSuccess(neoEntityService.addCategory((String)params.get("name"),(String)params.get("color")));
     }
 
     // 修改类型
     @RequestMapping(path = "/updateCategory", method = RequestMethod.POST)
-    public ResponseVO updateCategory(@RequestParam(value = "id") long id, @RequestParam(value = "name") String name,
-                                     @RequestParam(value = "color") String color) {
+    public ResponseVO updateCategory(@RequestBody Map<String, Object> params) {
         //此处由neoEntityService决定返回buildSuccess或是failure
-        return neoEntityService.updateCategory(id,name,color);
+        return neoEntityService.updateCategory(Long.parseLong(params.get("id").toString()),(String)params.get("name"),(String)params.get("color"));
     }
 }
 
