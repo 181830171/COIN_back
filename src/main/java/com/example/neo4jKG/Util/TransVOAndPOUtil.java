@@ -17,6 +17,8 @@ public class TransVOAndPOUtil {
         neoEntity.setSymbol(neoEntityVO.getSymbol());
         neoEntity.setX(neoEntityVO.getX());
         neoEntity.setY(neoEntityVO.getY());
+        neoEntity.setSymbolSize(neoEntityVO.getSymbolSize());
+        neoEntity.setCategory(neoEntityVO.getCategory());
         return neoEntity;
     }
 

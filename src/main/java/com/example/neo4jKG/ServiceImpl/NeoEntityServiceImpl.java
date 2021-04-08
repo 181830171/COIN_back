@@ -209,15 +209,17 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
         for(int i=0;i<relationNum.size();i++){
             int symbolSize = 70 - (int)(((maxNum-relationNum.get(i)) / (double)(maxNum-minNum)) * (70-30));
-            neoEntities.get(i).setSymbolSize(symbolSize);
-            if(neoEntities.get(i).getCategory()==null){
+            NeoEntity neoEntity=neoEntities.get(i);
+            neoEntity.setSymbolSize(symbolSize);
+            if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
-                    neoEntities.get(i).setCategory((long)0);
+                    neoEntity.setCategory((long)0);
                 }else if(symbolSize <= 40){
-                    neoEntities.get(i).setCategory((long)1);
+                    neoEntity.setCategory((long)1);
                 }else {
-                    neoEntities.get(i).setCategory((long)2);
-            }
+                    neoEntity.setCategory((long)2);
+                }
+                neoEntityRepository.updateEntityCategory(neoEntity.getId(),neoEntity.getCategory());
             }
         }
 

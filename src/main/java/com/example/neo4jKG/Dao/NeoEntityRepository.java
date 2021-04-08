@@ -16,9 +16,15 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
             "n.category= :#{#category}, n.symbolSize = :#{#symbolSize}, n.centerX = :#{#centerX}, n.centerY = :#{#centerY}," +
             "n.symbol= :#{#symbol} RETURN n")
     NeoEntity updateByEntity(@Param(value = "id") Long id, @Param(value = "name") String name, @Param(value = "x") double x,
-                             @Param(value = "y") double y, @Param(value = "des") String des, @Param(value = "category") long category,
+                             @Param(value = "y") double y, @Param(value = "des") String des, @Param(value = "category") Long category,
                              @Param(value = "symbolSize") int symbolSize, @Param(value = "centerX") double centerX,
                              @Param(value = "centerY") double centerY,@Param(value = "symbol") String symbol);
+
+    @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.category= :#{#category} RETURN n")
+    NeoEntity updateEntityCategory(@Param(value = "id") Long id, @Param(value = "category") Long category);
+
+    @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.symbolSize = :#{#symbolSize} RETURN n")
+    NeoEntity updateEntitySize(@Param(value = "id") Long id, @Param(value = "symbolSize") int symbolSize);
 
 //    @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
 //    void deleteByIdCus(@Param(value = "id") long id);
