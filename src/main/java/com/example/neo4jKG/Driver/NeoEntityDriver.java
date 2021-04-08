@@ -36,8 +36,14 @@ public class NeoEntityDriver {
 
     public void updateRelType(long id, String type){
         try {
-            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.type=$type RETURN r as node";
-            session.run(updateRel,parameters("id",id,"type",type));
+            boolean isSolid;
+            if(type.equals("solid")){
+                isSolid=true;
+            }else{
+                isSolid=false;
+            }
+            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.isSolid=$isSolid RETURN r as node";
+            session.run(updateRel,parameters("id",id,"isSolid",isSolid));
         }catch (Exception e){
             e.printStackTrace();
         }

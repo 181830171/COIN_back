@@ -150,10 +150,14 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             centerX = neoEntityReal.getCenterX();
             centerY = neoEntityReal.getCenterY();
         }
+        String symbol=neoEntityReal.getSymbol();
+        if(symbol==null){
+            symbol="circle";
+        }
 //        System.out.println("neoEntityVO:"+neoEntityVO);
         NeoEntity neoEntity = neoEntityRepository.updateByEntity(neoEntityVO.getNodeId(), neoEntityVO.getName(),
                 neoEntityVO.getX(), neoEntityVO.getY(), neoEntityVO.getDes(),
-                neoEntityVO.getCategory(), neoEntityVO.getSymbolSize(),centerX,centerY,neoEntityVO.getSymbol());
+                neoEntityVO.getCategory(), neoEntityVO.getSymbolSize(),centerX,centerY,symbol);
         return transVOAndPOUtil.transNeoEntity(neoEntity);
     }
 
@@ -387,7 +391,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     /**
      * 修改节点类型
      * 调用CategoryRepository.updateCategory()
-     * @param id,name,color,symbol
+     * @param id,name,color
      * @return
      */
     @Override
