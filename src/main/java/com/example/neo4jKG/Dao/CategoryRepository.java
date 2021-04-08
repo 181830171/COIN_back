@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends Neo4jRepository<Category, Long> {
-    @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.name = :#{#name}, n.color = :#{#color}RETURN n")
+    @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.name = :#{#name}, n.color = :#{#color} RETURN n")
     Category updateCategory(@Param(value = "id") Long id, @Param(value = "name") String name,
                             @Param(value = "color") String color);
 }

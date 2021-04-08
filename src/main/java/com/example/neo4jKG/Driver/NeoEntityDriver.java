@@ -51,7 +51,7 @@ public class NeoEntityDriver {
 
     public void updateRelSymbol(long id, String[] symbol){
         try {
-            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.symbolFrom=$symbolFom, r.symbolTo=$symbolTo RETURN r as node";
+            String updateRel = "MATCH (r) WHERE id(r)=$id SET r.symbolFrom=$symbolFrom, r.symbolTo=$symbolTo RETURN r as node";
             session.run(updateRel,parameters("id",id,"symbolFrom",symbol[0],"symbolTo",symbol[1]));
         }catch (Exception e){
             e.printStackTrace();
