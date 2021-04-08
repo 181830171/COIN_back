@@ -20,7 +20,7 @@ public class NeoEntityVO {
     private Integer symbolSize;
 
     // 种类(颜色)
-    private Integer category;
+    private Long category;
 
     // 坐标 x, y
     private Double x;
@@ -75,11 +75,11 @@ public class NeoEntityVO {
         this.symbolSize = symbolSize;
     }
 
-    public Integer getCategory() {
+    public Long getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 

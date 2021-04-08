@@ -50,7 +50,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         NeoEntity neoEntity = neoEntityRepository.save(transVOAndPOUtil.transNeoEntityVO(neoEntityVO));
         NeoEntityVO neoEntityVORes = transVOAndPOUtil.transNeoEntity(neoEntity);
         neoEntityVORes.setSymbolSize(30);
-        neoEntityVORes.setCategory(2);
+        neoEntityVORes.setCategory((long)2);
         neoEntityVORes.setX(20.0);
         neoEntityVORes.setY(20.0);
         return neoEntityVORes;
@@ -150,7 +150,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             centerX = neoEntityReal.getCenterX();
             centerY = neoEntityReal.getCenterY();
         }
-        String symbol=neoEntityReal.getSymbol();
+        String symbol=neoEntityVO.getSymbol();
         if(symbol==null){
             symbol="circle";
         }
@@ -212,11 +212,11 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             neoEntities.get(i).setSymbolSize(symbolSize);
             if(neoEntities.get(i).getCategory()==null){
                 if(symbolSize >=60){
-                    neoEntities.get(i).setCategory(0);
+                    neoEntities.get(i).setCategory((long)0);
                 }else if(symbolSize <= 40){
-                    neoEntities.get(i).setCategory(1);
+                    neoEntities.get(i).setCategory((long)1);
                 }else {
-                    neoEntities.get(i).setCategory(2);
+                    neoEntities.get(i).setCategory((long)2);
             }
             }
         }

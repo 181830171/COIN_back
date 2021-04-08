@@ -33,6 +33,10 @@ public class NeoEntity {
     private Double centerY = (double)Integer.MIN_VALUE;
     @Property(name = "symbol")
     private String symbol="circle";
+    @Property(name = "symbolSize")
+    private Integer symbolSize;
+    @Property(name = "category")
+    private Long category;
 
     @Override
     public String toString() {
@@ -77,12 +81,6 @@ public class NeoEntity {
         this.centerY = centerY;
     }
 
-    @Property(name = "symbolSize")
-    private Integer symbolSize;
-
-
-    @Property(name = "category")
-    private Integer category;
 
     public Integer getSymbolSize() {
         return symbolSize;
@@ -92,11 +90,11 @@ public class NeoEntity {
         this.symbolSize = symbolSize;
     }
 
-    public Integer getCategory() {
+    public Long getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 

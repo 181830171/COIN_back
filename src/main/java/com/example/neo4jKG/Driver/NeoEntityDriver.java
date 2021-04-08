@@ -114,7 +114,7 @@ public class NeoEntityDriver {
             neoEntity.setDes((String)(node.get("des")));
             neoEntity.setCenterX((Double) (node.get("centerX")));
             neoEntity.setCenterY((Double) (node.get("centerY")));
-            neoEntity.setCategory((Integer)(node.get("category")));
+            neoEntity.setCategory((Long)node.get("category"));
             neoEntity.setSymbolSize((Integer)(node.get("symbolSize")));
             neoEntity.setX((Double) (node.get("x")));
             neoEntity.setY((Double) (node.get("y")));
