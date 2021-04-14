@@ -21,6 +21,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -175,6 +178,23 @@ class NeoEntityControllerTest {
                     .param("symbol", new String[]{"arrow", "pin"})).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //搜索，然后获取搜索记录
+    @Test
+    public void test11(){
+        try{
+            MvcResult mvcResult0 = mockMvc.perform(MockMvcRequestBuilders.post("/searchNodes")
+                    .contentType(MediaType.TEXT_HTML).param("message","贾")).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult0.getResponse().getContentAsString(StandardCharsets.UTF_8));
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/getSearchHistories")
+                    .contentType(MediaType.TEXT_HTML)).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
         }catch (Exception e){
             e.printStackTrace();
         }

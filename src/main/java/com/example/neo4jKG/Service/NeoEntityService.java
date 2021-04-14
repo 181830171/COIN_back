@@ -50,4 +50,10 @@ public interface NeoEntityService {
 
     //更新节点类型
     ResponseVO updateCategory(long id, String name, String color);
+
+    //获取搜索记录
+    ResponseVO getSearchHistories();
+
+    //搜索节点
+    ResponseVO searchNodes(String message);
 }
