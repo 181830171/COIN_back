@@ -180,6 +180,18 @@ class NeoEntityControllerTest {
         }
     }
 
+    @Test
+    public void test11(){
+        try{
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/getSearchHistories")
+                    .contentType(MediaType.TEXT_HTML)).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

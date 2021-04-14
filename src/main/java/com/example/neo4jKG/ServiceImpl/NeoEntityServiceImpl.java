@@ -3,10 +3,12 @@ package com.example.neo4jKG.ServiceImpl;
 import com.example.neo4jKG.Dao.CategoryRepository;
 import com.example.neo4jKG.Dao.NeoEntityRepository;
 import com.example.neo4jKG.Dao.RelateRepository;
+import com.example.neo4jKG.Dao.SearchHistoryRepository;
 import com.example.neo4jKG.Driver.NeoEntityDriver;
 import com.example.neo4jKG.Entity.Category;
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Entity.Relation;
+import com.example.neo4jKG.Entity.SearchHistory;
 import com.example.neo4jKG.Service.NeoEntityService;
 import com.example.neo4jKG.Util.MathUtil;
 import com.example.neo4jKG.Util.TransVOAndPOUtil;
@@ -27,6 +29,9 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private SearchHistoryRepository searchHistoryRepository;
 
     @Autowired
     private NeoEntityDriver neoEntityDriver;
@@ -194,7 +199,8 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         List<CategoryVO> categoryVOS=new ArrayList<>();
 
         /* 决定点的半径和种类
-        将半径定在30-70之间
+        若点已经确定了半径和种类，则保持不变
+        否则将半径定在30-70之间
         取最大的为70,最小的为30,按节点所拥有的关系数量比例分布
         */
 
@@ -208,9 +214,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         int minNum = Collections.min(relationNum);
 
         for(int i=0;i<relationNum.size();i++){
-            int symbolSize = 70 - (int)(((maxNum-relationNum.get(i)) / (double)(maxNum-minNum)) * (70-30));
             NeoEntity neoEntity=neoEntities.get(i);
-            neoEntity.setSymbolSize(symbolSize);
+            int symbolSize = 70 - (int) (((maxNum - relationNum.get(i)) / (double) (maxNum - minNum)) * (70 - 30));
+            if(neoEntity.getSymbolSize()==0) {
+                neoEntity.setSymbolSize(symbolSize);
+                neoEntityRepository.updateEntitySize(neoEntity.getId(),symbolSize);
+            }
             if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
                     neoEntity.setCategory((long)0);
@@ -405,5 +414,19 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
         Category category=categoryRepository.updateCategory(id, name, color);
         return ResponseVO.buildSuccess(transVOAndPOUtil.transCategory(category));
+    }
+
+    /**
+     * 获取搜索历史
+     */
+
+    @Override
+    public ResponseVO getSearchHistories(){
+        List<SearchHistory> searchHistories=searchHistoryRepository.findAll();
+        List<String> historyList=new ArrayList<>();
+        for(SearchHistory searchHistory:searchHistories){
+            historyList.add(searchHistory.getHistory());
+        }
+        return ResponseVO.buildSuccess(historyList);
     }
 }

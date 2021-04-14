@@ -91,5 +91,11 @@ public class NeoEntityController {
         //此处由neoEntityService决定返回buildSuccess或是failure
         return neoEntityService.updateCategory(Long.parseLong(params.get("id").toString()),(String)params.get("name"),(String)params.get("color"));
     }
+
+    @RequestMapping(path= "/getSearchHistories", method = RequestMethod.GET)
+    public ResponseVO getSearchHistories(){
+        return neoEntityService.getSearchHistories();
+    }
+
 }
 
