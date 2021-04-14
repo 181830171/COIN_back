@@ -20,9 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.util.MultiValueMap;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -131,9 +134,12 @@ class NeoEntityControllerTest {
     @Test
     public void test7() {
         try{
+            Map<String,String> params= new HashMap<String, String>();
+            params.put("name","category1");
+            params.put("color","#ee6666");
+            String test7JsonString = JSON.toJSONString(params);
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/addCategory")
-                    .contentType(MediaType.TEXT_HTML)
-                    .param("name","category1").param("color","#ee6666")).andDo(print()).andExpect(status().isOk())
+                    .contentType(MediaType.TEXT_HTML).content(test7JsonString)).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
@@ -145,9 +151,13 @@ class NeoEntityControllerTest {
     @Test
     public void test8(){
         try{
+            Map<String,Object> params= new HashMap<>();
+            params.put("id",98);
+            params.put("name","category1");
+            params.put("color","#ee6666");
+            String test8 = JSON.toJSONString(params);
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/updateCategory")
-                    .contentType(MediaType.TEXT_HTML).param("id","98")
-                    .param("name","category1").param("color","#ee6666")).andDo(print()).andExpect(status().isOk())
+                    .contentType(MediaType.TEXT_HTML).content(test8)).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
