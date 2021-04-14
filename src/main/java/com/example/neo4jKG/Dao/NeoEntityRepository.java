@@ -36,4 +36,7 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
 
     @Query("MATCH (n) WHERE n.name = :#{#name} RETURN n")
     List<NeoEntity> findByName(@Param(value = "name") String name);
+
+    @Query("MATCH (n) WHERE n.name =~('.*'+$message+'.*') RETURN n")
+    List<NeoEntity> searchNodes(@Param(value="message") String message);
 }

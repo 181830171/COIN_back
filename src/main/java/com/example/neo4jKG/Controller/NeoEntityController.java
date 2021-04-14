@@ -97,5 +97,9 @@ public class NeoEntityController {
         return neoEntityService.getSearchHistories();
     }
 
+    @RequestMapping(path = "/searchNodes",method = RequestMethod.POST)
+    public ResponseVO searchNodes(@RequestParam(value = "message") String message){
+        return neoEntityService.searchNodes(message);
+    }
 }
 

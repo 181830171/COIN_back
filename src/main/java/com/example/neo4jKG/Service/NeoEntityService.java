@@ -53,4 +53,7 @@ public interface NeoEntityService {
 
     //获取搜索记录
     ResponseVO getSearchHistories();
+
+    //搜索节点
+    ResponseVO searchNodes(String message);
 }

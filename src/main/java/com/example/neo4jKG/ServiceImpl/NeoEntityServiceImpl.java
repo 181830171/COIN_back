@@ -429,4 +429,17 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         }
         return ResponseVO.buildSuccess(historyList);
     }
+
+    /**
+     * 搜索节点，支持模糊查询，保存搜索记录
+     * @param message
+     */
+    @Override
+    public ResponseVO searchNodes(String message) {
+        SearchHistory searchHistory=new SearchHistory();
+        searchHistory.setId((long)-1);
+        searchHistory.setHistory(message);
+        searchHistoryRepository.save(searchHistory);
+        return ResponseVO.buildSuccess(neoEntityRepository.searchNodes(message));
+    }
 }
