@@ -199,8 +199,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         List<CategoryVO> categoryVOS=new ArrayList<>();
 
         /* 决定点的半径和种类
-        若点已经确定了半径和种类，则保持不变
-        否则将半径定在30-70之间
+        将半径定在30-70之间
         取最大的为70,最小的为30,按节点所拥有的关系数量比例分布
         */
 
@@ -214,12 +213,9 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         int minNum = Collections.min(relationNum);
 
         for(int i=0;i<relationNum.size();i++){
+            int symbolSize = 70 - (int)(((maxNum-relationNum.get(i)) / (double)(maxNum-minNum)) * (70-30));
             NeoEntity neoEntity=neoEntities.get(i);
-            int symbolSize = 70 - (int) (((maxNum - relationNum.get(i)) / (double) (maxNum - minNum)) * (70 - 30));
-            if(neoEntity.getSymbolSize()==0) {
-                neoEntity.setSymbolSize(symbolSize);
-                neoEntityRepository.updateEntitySize(neoEntity.getId(),symbolSize);
-            }
+            neoEntity.setSymbolSize(symbolSize);
             if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
                     neoEntity.setCategory((long)0);

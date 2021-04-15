@@ -17,14 +17,14 @@ public class NeoEntityVO {
     private String des="";
 
     // 半径
-    private Integer symbolSize=0;
+    private Integer symbolSize;
 
     // 种类(颜色)
     private Long category;
 
     // 坐标 x, y
-    private Double x=0.0;
-    private Double y=0.0;
+    private Double x;
+    private Double y;
 
     // 形状
     private String symbol="circle";
