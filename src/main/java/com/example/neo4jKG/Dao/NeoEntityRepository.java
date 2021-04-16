@@ -26,6 +26,9 @@ public interface NeoEntityRepository extends Neo4jRepository<NeoEntity, Long> {
     @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.symbolSize = :#{#symbolSize} RETURN n")
     NeoEntity updateEntitySize(@Param(value = "id") Long id, @Param(value = "symbolSize") int symbolSize);
 
+    @Query("MATCH (n) WHERE id(n) = :#{#id} SET n.x = :#{#x}, n.y= :#{#y} RETURN n")
+    NeoEntity updateEntityPosition(@Param(value = "id") Long id, @Param(value = "x") double x,@Param(value="y") double y);
+
 //    @Query("MATCH (n) WHERE id(n) = :#{#id} DETACH DELETE n")
 //    void deleteByIdCus(@Param(value = "id") long id);
 

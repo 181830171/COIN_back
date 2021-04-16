@@ -24,9 +24,9 @@ public class NeoEntity {
     @Property(name = "des")
     private String des="";
     @Property(name = "x")
-    private Double x= (double) 0.0;
+    private Double x;
     @Property(name = "y")
-    private Double y=0.0;
+    private Double y;
     @Property(name = "centerX")
     private Double centerX = (double) Integer.MIN_VALUE;
     @Property(name = "centerY")

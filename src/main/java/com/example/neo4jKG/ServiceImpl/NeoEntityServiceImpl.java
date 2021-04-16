@@ -215,7 +215,11 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         for(int i=0;i<relationNum.size();i++){
             int symbolSize = 70 - (int)(((maxNum-relationNum.get(i)) / (double)(maxNum-minNum)) * (70-30));
             NeoEntity neoEntity=neoEntities.get(i);
-            neoEntity.setSymbolSize(symbolSize);
+            if(neoEntity.getSymbolSize()==null) {
+                neoEntity.setSymbolSize(symbolSize);
+                //持久化
+                neoEntityRepository.updateEntitySize(neoEntity.getId(),symbolSize);
+            }
             if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
                     neoEntity.setCategory((long)0);
@@ -224,6 +228,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 }else {
                     neoEntity.setCategory((long)2);
                 }
+                //持久化
                 neoEntityRepository.updateEntityCategory(neoEntity.getId(),neoEntity.getCategory());
             }
         }
@@ -265,6 +270,9 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 neoEntity.setY(baseY);
                 neoEntity.setCenterX(baseX);
                 neoEntity.setCenterY(baseY);
+                //持久化
+                neoEntityRepository.updateEntityPosition(neoEntity.getId(),neoEntity.getX(),neoEntity.getY());
+
             }
 
             // 设置相关节点的位置
@@ -285,6 +293,8 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                         entity.setY(mathUtil.remainTwoFractions(baseY+5*Math.sin(curAngle)));
                         entity.setCenterX(baseX);
                         entity.setCenterY(baseY);
+                        //持久化
+                        neoEntityRepository.updateEntityPosition(entity.getId(),entity.getX(),entity.getY());
                         break;
                     }
                 }
@@ -436,6 +446,11 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         searchHistory.setId((long)-1);
         searchHistory.setHistory(message);
         searchHistoryRepository.save(searchHistory);
-        return ResponseVO.buildSuccess(neoEntityRepository.searchNodes(message));
+        List<NeoEntity> neoEntities=neoEntityRepository.searchNodes(message);
+        List<NeoEntityVO> neoEntityVOS=new ArrayList<>();
+        for(NeoEntity neoEntity:neoEntities){
+            neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
+        }
+        return ResponseVO.buildSuccess(neoEntityVOS);
     }
 }
