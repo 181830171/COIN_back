@@ -3,6 +3,7 @@ package com.example.neo4jKG.Service;
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.VO.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public interface NeoEntityService {
@@ -29,6 +30,8 @@ public interface NeoEntityService {
 
     // 根据id删除关系
     void deleteRelateById(long id);
+
+    NodeListVO initAllEntities();
 
     // 获取所有的实体和关系
     NeoAndRelationListVO getAllEntitiesAndRelations();

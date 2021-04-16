@@ -85,7 +85,7 @@ public class ReadFileUtil {
         }
 
 
-        String test_result = JSON.toJSONString(neoEntityService.getAllEntitiesAndRelations());
+        String test_result = JSON.toJSONString(neoEntityService.initAllEntities());
         try{
             OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(new File("test5_result.json")),"UTF-8");
             JSONObject obj= JSONObject.fromObject(test_result);//创建JSONObject对象

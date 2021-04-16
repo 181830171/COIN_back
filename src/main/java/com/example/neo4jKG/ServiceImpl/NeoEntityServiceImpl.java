@@ -177,27 +177,14 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         neoEntityDriver.deleteRel(id);
     }
 
-
     /**
-     * 获取所有的实体和关系
-     * 调用服务:
-     * relateRepository.findAll 获取所有的关系
-     * neoEntityDriver.findRelatedNodes 根据id获取相关节点
-     *
-     * @return
+     * initAllEntitiesAndRelations
+     * 初始化所有节点位置和大小
      */
     @Override
-    public NeoAndRelationListVO getAllEntitiesAndRelations() {
-        NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
+    public NodeListVO initAllEntities(){
+        NodeListVO nodeList=new NodeListVO();
         List<NeoEntity> neoEntities = neoEntityRepository.findAll();
-        List<Relation> relations = relateRepository.findAll();
-        List<Category> categories= categoryRepository.findAll();
-//        System.out.println("AllRelations:" + relations);
-        // 结果列表
-        List<NeoEntityVO> neoEntityVOS = new ArrayList<>();
-        List<RelationVO> relationVOS = new ArrayList<>();
-        List<CategoryVO> categoryVOS=new ArrayList<>();
-
         /* 决定点的半径和种类
         将半径定在30-70之间
         取最大的为70,最小的为30,按节点所拥有的关系数量比例分布
@@ -215,11 +202,8 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         for(int i=0;i<relationNum.size();i++){
             int symbolSize = 70 - (int)(((maxNum-relationNum.get(i)) / (double)(maxNum-minNum)) * (70-30));
             NeoEntity neoEntity=neoEntities.get(i);
-            if(neoEntity.getSymbolSize()==null) {
-                neoEntity.setSymbolSize(symbolSize);
-                //持久化
-                neoEntityRepository.updateEntitySize(neoEntity.getId(),symbolSize);
-            }
+            neoEntity.setSymbolSize(symbolSize);
+
             if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
                     neoEntity.setCategory((long)0);
@@ -228,18 +212,16 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 }else {
                     neoEntity.setCategory((long)2);
                 }
-                //持久化
-                neoEntityRepository.updateEntityCategory(neoEntity.getId(),neoEntity.getCategory());
             }
         }
 
         /*
-        * 确定节点的x，y坐标
-        * 首先寻找中心节点，将和中心节点有关的节点均匀分布在四周，半径定为5
-        * 中心节点x加12，确定下一个中心节点的位置，接着对下一个中心节点进行迭代
-        * 中心节点的顺序按照symbolSize排序
-        * 将已经定位的节点存在数组中
-        * */
+         * 确定节点的x，y坐标
+         * 首先寻找中心节点，将和中心节点有关的节点均匀分布在四周，半径定为5
+         * 中心节点x加12，确定下一个中心节点的位置，接着对下一个中心节点进行迭代
+         * 中心节点的顺序按照symbolSize排序
+         * 将已经定位的节点存在数组中
+         * */
         neoEntities.sort((o1, o2) -> o2.getSymbolSize() - o1.getSymbolSize());
         List<Long> locatedIds = new ArrayList<>();
         // 当前中心节点x,y坐标
@@ -270,9 +252,6 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 neoEntity.setY(baseY);
                 neoEntity.setCenterX(baseX);
                 neoEntity.setCenterY(baseY);
-                //持久化
-                neoEntityRepository.updateEntityPosition(neoEntity.getId(),neoEntity.getX(),neoEntity.getY());
-
             }
 
             // 设置相关节点的位置
@@ -280,8 +259,6 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                 continue;
 
             int cnt = relatedNeoEntityList.size();
-//            System.out.println("x:"+(baseX) + " y:" + (baseY) + " name: " + neoEntity.getName()+ " id: " + neoEntity.getId()+"\n relatedNodes" +relatedNeoEntityList +
-//                    "\n cnt:" + cnt);
             double angleInterval = mathUtil.remainTwoFractions(360.0/cnt);
             double curAngle = angleInterval/2;
             for(NeoEntity relatedNeoEntity:relatedNeoEntityList){
@@ -293,8 +270,6 @@ public class NeoEntityServiceImpl implements NeoEntityService {
                         entity.setY(mathUtil.remainTwoFractions(baseY+5*Math.sin(curAngle)));
                         entity.setCenterX(baseX);
                         entity.setCenterY(baseY);
-                        //持久化
-                        neoEntityRepository.updateEntityPosition(entity.getId(),entity.getX(),entity.getY());
                         break;
                     }
                 }
@@ -305,6 +280,40 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             baseX += 12;
             baseY += mathUtil.remainTwoFractions(Math.random()*4-2);
         }
+
+
+        for(NeoEntity neoEntity:neoEntities){
+            neoEntityRepository.updateByEntity(neoEntity.getId(),neoEntity.getName(),neoEntity.getX()
+            ,neoEntity.getY(),neoEntity.getDes(),neoEntity.getCategory(),neoEntity.getSymbolSize(),neoEntity.getCenterX()
+            ,neoEntity.getCategory(),neoEntity.getSymbol());
+        }
+        nodeList.setNodes(neoEntities);
+        return nodeList;
+
+
+    }
+
+
+
+    /**
+     * 获取所有的实体和关系
+     * 调用服务:
+     * relateRepository.findAll 获取所有的关系
+     * neoEntityDriver.findRelatedNodes 根据id获取相关节点
+     *
+     * @return
+     */
+    @Override
+    public NeoAndRelationListVO getAllEntitiesAndRelations() {
+        NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
+        List<NeoEntity> neoEntities = neoEntityRepository.findAll();
+        List<Relation> relations = relateRepository.findAll();
+        List<Category> categories= categoryRepository.findAll();
+        // 结果列表
+        List<NeoEntityVO> neoEntityVOS = new ArrayList<>();
+        List<RelationVO> relationVOS = new ArrayList<>();
+        List<CategoryVO> categoryVOS=new ArrayList<>();
+
 
         for(Category category:categories){
             CategoryVO categoryVO=transVOAndPOUtil.transCategory(category);
@@ -322,15 +331,6 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             relationVOS.add(relationVO);
         }
 
-        // 统计有多少个种类
-//        List<Integer> categories = new ArrayList<>();
-//        int cnt = 0;
-//        for(NeoEntityVO neoEntityVO:neoEntityVOS){
-//            if(!categories.contains(neoEntityVO.getCategory())){
-//                categories.add(neoEntityVO.getCategory());
-//                cnt++;
-//            }
-//        }
         neoAndRelationListVO.setCategories(categoryVOS);
         neoAndRelationListVO.setLinks(relationVOS);
         neoAndRelationListVO.setNodes(neoEntityVOS);
