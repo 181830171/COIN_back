@@ -2,6 +2,7 @@ package com.example.neo4jKG.Util;
 
 import com.example.neo4jKG.Entity.NeoEntity;
 import com.example.neo4jKG.Service.NeoEntityService;
+import com.example.neo4jKG.Service.UserService;
 import com.example.neo4jKG.VO.CategoryVO;
 import com.example.neo4jKG.VO.ItemStyleVO;
 import com.example.neo4jKG.VO.NeoEntityVO;
@@ -19,8 +20,13 @@ public class ReadFileUtil {
     @Autowired
     NeoEntityService neoEntityService;
 
+    @Autowired
+    UserService userService;
+
     @PostConstruct
     public void readFileAndSave(){
+        userService.register("admin","123456");
+
         neoEntityService.clearRepository();
         System.out.println("Start Reading File...");
         File file = new File("test5.json");
@@ -85,7 +91,7 @@ public class ReadFileUtil {
         }
 
 
-        String test_result = JSON.toJSONString(neoEntityService.getAllEntitiesAndRelations());
+        String test_result = JSON.toJSONString(neoEntityService.initAllEntities());
         try{
             OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(new File("test5_result.json")),"UTF-8");
             JSONObject obj= JSONObject.fromObject(test_result);//创建JSONObject对象
