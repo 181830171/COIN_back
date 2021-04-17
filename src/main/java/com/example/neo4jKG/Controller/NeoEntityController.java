@@ -92,11 +92,13 @@ public class NeoEntityController {
         return neoEntityService.updateCategory(Long.parseLong(params.get("id").toString()),(String)params.get("name"),(String)params.get("color"));
     }
 
+    //获取搜索历史
     @RequestMapping(path= "/getSearchHistories", method = RequestMethod.GET)
     public ResponseVO getSearchHistories(){
         return neoEntityService.getSearchHistories();
     }
 
+    //搜索节点
     @RequestMapping(path = "/searchNodes",method = RequestMethod.POST)
     public ResponseVO searchNodes(@RequestParam(value = "message") String message){
         return neoEntityService.searchNodes(message);

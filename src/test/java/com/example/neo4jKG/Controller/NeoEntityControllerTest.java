@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
@@ -137,9 +138,9 @@ class NeoEntityControllerTest {
             Map<String,String> params= new HashMap<String, String>();
             params.put("name","category1");
             params.put("color","#ee6666");
-            String test7JsonString = JSON.toJSONString(params);
+            String test7 = JSON.toJSONString(params);
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/addCategory")
-                    .contentType(MediaType.TEXT_HTML).content(test7JsonString)).andDo(print()).andExpect(status().isOk())
+                    .contentType(MediaType.APPLICATION_JSON).content(test7)).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
@@ -157,7 +158,7 @@ class NeoEntityControllerTest {
             params.put("color","#ee6666");
             String test8 = JSON.toJSONString(params);
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/updateCategory")
-                    .contentType(MediaType.TEXT_HTML).content(test8)).andDo(print()).andExpect(status().isOk())
+                    .contentType(MediaType.APPLICATION_JSON).content(test8)).andDo(print()).andExpect(status().isOk())
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString());
         }catch (Exception e){
@@ -206,6 +207,28 @@ class NeoEntityControllerTest {
                     .andReturn();
             System.out.println("Response:" + mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //登录
+    @Test
+    public void test12(){
+        try {
+
+            Map<String,Object> params= new HashMap<>();
+            params.put("username","admin");
+            params.put("password","123456");
+            String test12 = JSON.toJSONString(params);
+            MvcResult mvcResult0 = mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                    .contentType(MediaType.APPLICATION_JSON).content(test12)).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                    .contentType(MediaType.APPLICATION_JSON).content(test12)).andDo(print()).andExpect(status().isOk())
+                    .andReturn();
+            System.out.println("Response:" + mvcResult0.getResponse().getContentAsString(StandardCharsets.UTF_8));
+            System.out.println("Response:" + mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
