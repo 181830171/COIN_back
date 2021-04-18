@@ -445,7 +445,10 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         SearchHistory searchHistory=new SearchHistory();
         searchHistory.setId((long)-1);
         searchHistory.setHistory(message);
-        searchHistoryRepository.save(searchHistory);
+        List<SearchHistory> searchHistories=searchHistoryRepository.findByHistory(message);
+        if(searchHistories.size()==0) {
+            searchHistoryRepository.save(searchHistory);
+        }
         List<NeoEntity> neoEntities=neoEntityRepository.searchNodes(message);
         List<NeoEntityVO> neoEntityVOS=new ArrayList<>();
         for(NeoEntity neoEntity:neoEntities){
