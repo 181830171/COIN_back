@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
             user.setUsername(username);
             user.setPassword(password);
             userRepository.save(user);
+            System.out.println("成功注册账号"+username);
             return ResponseVO.buildSuccess(REGISTER_SUCCESS);
         }
     }

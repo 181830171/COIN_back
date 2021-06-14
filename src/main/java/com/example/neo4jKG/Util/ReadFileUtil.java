@@ -25,8 +25,6 @@ public class ReadFileUtil {
 
     @PostConstruct
     public void readFileAndSave(){
-        userService.register("admin","123456");
-
         neoEntityService.clearRepository();
         System.out.println("Start Reading File...");
         File file = new File("test5.json");
@@ -89,6 +87,8 @@ public class ReadFileUtil {
             String color=JSONObject.fromObject(categoryJson.getString("itemStyle")).getString("color");
             neoEntityService.addCategory(name,color);
         }
+
+        userService.register("admin","123456");
 
 
         String test_result = JSON.toJSONString(neoEntityService.initAllEntities());
