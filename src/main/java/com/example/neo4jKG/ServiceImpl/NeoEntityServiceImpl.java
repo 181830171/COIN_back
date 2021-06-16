@@ -308,12 +308,24 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         System.out.println("getALLlISTANDENTITYIES:" +  "Enter");
         NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
         List<NeoEntity> neoEntities = new ArrayList<>();
-        List<Relation> relations = relateRepository.findAll();
+        HashSet<Long> neoEntityIds = new HashSet<>();
+        List<Relation> tmp_relations = relateRepository.findLimitedAll();
+        List<Relation> relations = new ArrayList<>();
+        for(int i=0;i<tmp_relations.size();i++){
+            Relation relation = relateRepository.findById(tmp_relations.get(i).getRelationshipId()).get();
+            relations.add(relation);
+        }
         System.out.println("getALLlISTANDENTITYIES:" +  relations.size());
-        relations = relations.subList(0,10);
         for(Relation relation:relations){
-            neoEntities.add(relation.getFrom());
-            neoEntities.add(relation.getTo());
+            System.out.println(relation);
+            if(!neoEntityIds.contains(relation.getFrom().getId())){
+                neoEntityIds.add(relation.getFrom().getId());
+                neoEntities.add(relation.getFrom());
+            }
+            if(!neoEntityIds.contains(relation.getTo().getId())){
+                neoEntityIds.add(relation.getTo().getId());
+                neoEntities.add(relation.getTo());
+            }
         }
         System.out.println("getALLlISTANDENTITYIES:" +  neoEntities.size());
         List<Category> categories= categoryRepository.findAll();

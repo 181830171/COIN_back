@@ -36,7 +36,7 @@ public class ReadFileUtil {
         neoEntityService.addCategory("地点/组织","#225544");
         neoEntityService.addCategory("其它","#660044");
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("test.json")));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("harrypotterproperty.json")));
             int line = 1;
             String context = null;
             String json = "";
@@ -119,7 +119,7 @@ public class ReadFileUtil {
                                 if(neoEntityService.findByName(property_name)==null){
                                     NeoEntityVO neoEntityVO = new NeoEntityVO();
                                     String des = "";
-                                    if(property.equals("从属")){
+                                    if(property.equals("从属") || property.equals("学院")){
                                         des = "地点/组织";
                                         neoEntityVO.setCategory(3L);
                                     }else if(property.equals("职业")){
@@ -148,7 +148,7 @@ public class ReadFileUtil {
                             if(neoEntityService.findByName(property_name)==null){
                                 NeoEntityVO neoEntityVO = new NeoEntityVO();
                                 String des = "";
-                                if(property.equals("从属")){
+                                if(property.equals("从属") || property.equals("学院")){
                                     des = "地点/组织";
                                     neoEntityVO.setCategory(3L);
                                 }else if(property.equals("职业")){
@@ -178,7 +178,7 @@ public class ReadFileUtil {
         }catch (IOException exception){
             System.out.println("exception");
         }
-
+        neoEntityService.initAllEntities();
 //        System.out.println("Start Reading File...");
 //        File file = new File("test5.json");
 //        String allStrings = "";

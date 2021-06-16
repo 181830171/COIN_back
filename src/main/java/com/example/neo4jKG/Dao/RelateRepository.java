@@ -4,7 +4,10 @@ import com.example.neo4jKG.Entity.Relation;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 
+import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface RelateRepository extends Neo4jRepository<Relation, Long> {
@@ -18,4 +21,8 @@ public interface RelateRepository extends Neo4jRepository<Relation, Long> {
 //    @Query("MATCH ()-[]->(p) WHERE id(p) = :#{#id} RETURN count(*)")
 //    int countToRelationById(@Param(value = "id") long id);
 
+    @Query("MATCH (p:Relation) RETURN p LIMIT 20")
+    List<Relation> findLimitedAll();
+
+    List<Relation> findAll();
 }
