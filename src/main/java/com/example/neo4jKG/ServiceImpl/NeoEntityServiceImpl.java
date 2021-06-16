@@ -206,11 +206,11 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
             if(neoEntity.getCategory()==null){
                 if(symbolSize >=60){
-                    neoEntity.setCategory((long)0);
+//                    neoEntity.setCategory((long)0);
                 }else if(symbolSize <= 40){
-                    neoEntity.setCategory((long)1);
+//                    neoEntity.setCategory((long)1);
                 }else {
-                    neoEntity.setCategory((long)2);
+//                    neoEntity.setCategory((long)2);
                 }
             }
         }
@@ -305,9 +305,17 @@ public class NeoEntityServiceImpl implements NeoEntityService {
      */
     @Override
     public NeoAndRelationListVO getAllEntitiesAndRelations() {
+        System.out.println("getALLlISTANDENTITYIES:" +  "Enter");
         NeoAndRelationListVO neoAndRelationListVO = new NeoAndRelationListVO();
-        List<NeoEntity> neoEntities = neoEntityRepository.findAll();
+        List<NeoEntity> neoEntities = new ArrayList<>();
         List<Relation> relations = relateRepository.findAll();
+        System.out.println("getALLlISTANDENTITYIES:" +  relations.size());
+        relations = relations.subList(0,10);
+        for(Relation relation:relations){
+            neoEntities.add(relation.getFrom());
+            neoEntities.add(relation.getTo());
+        }
+        System.out.println("getALLlISTANDENTITYIES:" +  neoEntities.size());
         List<Category> categories= categoryRepository.findAll();
         // 结果列表
         List<NeoEntityVO> neoEntityVOS = new ArrayList<>();

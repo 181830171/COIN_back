@@ -28,11 +28,15 @@ public class ReadFileUtil {
 
     @PostConstruct
     public void readFileAndSave(){
-        userService.register("admin","123456");
-
         neoEntityService.clearRepository();
+        userService.register("admin","123456");
+        neoEntityService.addCategory("种族","#00ffff");
+        neoEntityService.addCategory("职业","#ff0000");
+        neoEntityService.addCategory("性别","#0000ff");
+        neoEntityService.addCategory("地点/组织","#225544");
+        neoEntityService.addCategory("其它","#660044");
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("harrypotterproperty.json")));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("test.json")));
             int line = 1;
             String context = null;
             String json = "";
@@ -55,6 +59,7 @@ public class ReadFileUtil {
                     NeoEntityVO neoEntityVO = new NeoEntityVO();
                     neoEntityVO.setNodeId((long) -1);
                     neoEntityVO.setName(name);
+                    neoEntityVO.setCategory(0L);
                     neoEntityVO.setDes(des);
                     neoEntityVO.setSymbol("circle");
                     neoEntityService.addNeoEntity(neoEntityVO);
@@ -75,8 +80,9 @@ public class ReadFileUtil {
                                 for(int i=0;i<family_names.size();i++){
                                     String family_name = (String) family_names.get(i);
                                     if(neoEntityService.findByName(family_name)==null){
-                                        String des = "other";
+                                        String des = "person";
                                         NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                        neoEntityVO.setCategory(0L);
                                         neoEntityVO.setNodeId((long) -1);
                                         neoEntityVO.setName(family_name);
                                         neoEntityVO.setDes(des);
@@ -90,8 +96,9 @@ public class ReadFileUtil {
                                 }
                             }else {
                                 if(neoEntityService.findByName((String)res3.get(family_info))==null){
-                                    String des = "other";
+                                    String des = "person";
                                     NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                    neoEntityVO.setCategory(0L);
                                     neoEntityVO.setNodeId((long) -1);
                                     neoEntityVO.setName((String)res3.get(family_info));
                                     neoEntityVO.setDes(des);
@@ -110,8 +117,21 @@ public class ReadFileUtil {
                             for(int i=0;i<jsonArray.size();i++){
                                 String property_name = (String)jsonArray.get(i);
                                 if(neoEntityService.findByName(property_name)==null){
-                                    String des = "other";
                                     NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                    String des = "";
+                                    if(property.equals("从属")){
+                                        des = "地点/组织";
+                                        neoEntityVO.setCategory(3L);
+                                    }else if(property.equals("职业")){
+                                        des = "职业";
+                                        neoEntityVO.setCategory(1L);
+                                    }else if(property.equals("性别")){
+                                        des = "性别";
+                                        neoEntityVO.setCategory(2L);
+                                    }else {
+                                        des = "其它";
+                                        neoEntityVO.setCategory(4L);
+                                    }
                                     neoEntityVO.setNodeId((long) -1);
                                     neoEntityVO.setName(property_name);
                                     neoEntityVO.setDes(des);
@@ -124,9 +144,23 @@ public class ReadFileUtil {
                                 System.out.println(name + " "+ property + " " + property_name);
                             }
                         }else {
-                            if(neoEntityService.findByName((String)res2.get(property))==null){
-                                String des = "other";
+                            String property_name = (String)res2.get(property);
+                            if(neoEntityService.findByName(property_name)==null){
                                 NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                String des = "";
+                                if(property.equals("从属")){
+                                    des = "地点/组织";
+                                    neoEntityVO.setCategory(3L);
+                                }else if(property.equals("职业")){
+                                    des = "职业";
+                                    neoEntityVO.setCategory(1L);
+                                }else if(property.equals("性别")){
+                                    des = "性别";
+                                    neoEntityVO.setCategory(2L);
+                                }else {
+                                    des = "其它";
+                                    neoEntityVO.setCategory(4L);
+                                }
                                 neoEntityVO.setNodeId((long) -1);
                                 neoEntityVO.setName((String)res2.get(property));
                                 neoEntityVO.setDes(des);
@@ -144,6 +178,7 @@ public class ReadFileUtil {
         }catch (IOException exception){
             System.out.println("exception");
         }
+
 //        System.out.println("Start Reading File...");
 //        File file = new File("test5.json");
 //        String allStrings = "";
