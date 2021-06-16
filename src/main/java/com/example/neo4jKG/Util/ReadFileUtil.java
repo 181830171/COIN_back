@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 @Component
 public class ReadFileUtil {
@@ -28,78 +31,191 @@ public class ReadFileUtil {
         userService.register("admin","123456");
 
         neoEntityService.clearRepository();
-        System.out.println("Start Reading File...");
-        File file = new File("test5.json");
-        String allStrings = "";
-        try{
-            FileInputStream in = new FileInputStream(file);
-            int size = in.available();
-            byte[] buffer = new byte[size];
-            in.read(buffer);
-            in.close();
-            allStrings = new String(buffer,"UTF-8");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("End Reading File");
-        if(allStrings.equals(""))
-            return;
-
-        JSONArray neoEntities;
-        JSONArray links;
-        JSONArray categories;
-
-        neoEntities = (JSONArray) JSONObject.fromObject(allStrings).get("data");
-        links = (JSONArray)JSONObject.fromObject(allStrings).get("links");
-        categories= (JSONArray)JSONObject.fromObject(allStrings).get("categories");
-        for(int i=0; i < neoEntities.size();i++){
-            JSONObject neoJson = JSONObject.fromObject(neoEntities.getString(i));
-            String name = neoJson.getString("name");
-            String des = neoJson.getString("des");
-            NeoEntityVO neoEntityVO = new NeoEntityVO();
-            neoEntityVO.setNodeId((long) -1);
-            neoEntityVO.setName(name);
-            neoEntityVO.setDes(des);
-            neoEntityVO.setSymbol("circle");
-            neoEntityService.addNeoEntity(neoEntityVO);
-        }
-
-        for(int i=0;i<links.size();i++){
-            JSONObject relationJson = JSONObject.fromObject(links.getString(i));
-            String source = relationJson.getString("source");
-            String target = relationJson.getString("target");
-            String name = relationJson.getString("name");
-            String des = relationJson.getString("des");
-            String type = JSONObject.fromObject(relationJson.getString("lineStyle")).getString("type");
-            String[] symbol={"pin","arrow"};
-            NeoEntity fromEntity = neoEntityService.findByName(source);
-            NeoEntity toEntity = neoEntityService.findByName(target);
-            if(fromEntity == null || toEntity == null){
-                continue;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("harrypotterproperty.json")));
+            int line = 1;
+            String context = null;
+            String json = "";
+            //json内容转化为Map集合通过遍历集合来进行封装
+            while ((context = bufferedReader.readLine()) != null) {
+                //Context就是读到的json数据
+                json += context;
+                line++;
             }
-            boolean isSolid = false;
-            if(type.equals("solid"))
-                isSolid = true;
-            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name,symbol);
+            Map<String, String> result = JSONObject.fromObject(json);
+            System.out.println(result);
+            Set<String> keySet = result.keySet();
+            Iterator<String> it = keySet.iterator();
+            while (it.hasNext()){
+                // 人名, 添加人名实体
+                String name = it.next();
+                // 判断实体是否存在
+                if(neoEntityService.findByName(name)==null){
+                    String des = "person";
+                    NeoEntityVO neoEntityVO = new NeoEntityVO();
+                    neoEntityVO.setNodeId((long) -1);
+                    neoEntityVO.setName(name);
+                    neoEntityVO.setDes(des);
+                    neoEntityVO.setSymbol("circle");
+                    neoEntityService.addNeoEntity(neoEntityVO);
+                }
+                NeoEntity source = neoEntityService.findByName(name);
+                Map<String, Object> res2 = JSONObject.fromObject(result.get(name));
+                Iterator<String> it2 = res2.keySet().iterator();
+                while (it2.hasNext()){
+                    String property = it2.next();
+                    // 如果属性是家庭信息,则下面还是一个jsonObject
+                    if(property.equals("家庭信息")){
+                        Map<String, Object> res3 = JSONObject.fromObject(res2.get(property));
+                        Iterator<String> it3 = res3.keySet().iterator();
+                        while (it3.hasNext()){
+                            String family_info = it3.next();
+                            if(res3.get(family_info) instanceof JSONArray){
+                                JSONArray family_names = (JSONArray) res3.get(family_info);
+                                for(int i=0;i<family_names.size();i++){
+                                    String family_name = (String) family_names.get(i);
+                                    if(neoEntityService.findByName(family_name)==null){
+                                        String des = "other";
+                                        NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                        neoEntityVO.setNodeId((long) -1);
+                                        neoEntityVO.setName(family_name);
+                                        neoEntityVO.setDes(des);
+                                        neoEntityVO.setSymbol("circle");
+                                        neoEntityService.addNeoEntity(neoEntityVO);
+                                    }
+                                    NeoEntity target = neoEntityService.findByName(family_name);
+                                    String[] symbol={"pin","arrow"};
+                                    neoEntityService.addIRelates(source.getId(),target.getId(),true,"",family_info,symbol);
+                                    System.out.println(name + " " + family_info + " " + family_name);
+                                }
+                            }else {
+                                if(neoEntityService.findByName((String)res3.get(family_info))==null){
+                                    String des = "other";
+                                    NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                    neoEntityVO.setNodeId((long) -1);
+                                    neoEntityVO.setName((String)res3.get(family_info));
+                                    neoEntityVO.setDes(des);
+                                    neoEntityVO.setSymbol("circle");
+                                    neoEntityService.addNeoEntity(neoEntityVO);
+                                }
+                                NeoEntity target = neoEntityService.findByName((String)res3.get(family_info));
+                                String[] symbol={"pin","arrow"};
+                                neoEntityService.addIRelates(source.getId(),target.getId(),true,"",family_info,symbol);
+                                System.out.println(name + " "+family_info + " " + (String) res3.get(family_info));
+                            }
+                        }
+                    }else {
+                        if(res2.get(property) instanceof JSONArray){
+                            JSONArray jsonArray = (JSONArray)res2.get(property);
+                            for(int i=0;i<jsonArray.size();i++){
+                                String property_name = (String)jsonArray.get(i);
+                                if(neoEntityService.findByName(property_name)==null){
+                                    String des = "other";
+                                    NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                    neoEntityVO.setNodeId((long) -1);
+                                    neoEntityVO.setName(property_name);
+                                    neoEntityVO.setDes(des);
+                                    neoEntityVO.setSymbol("circle");
+                                    neoEntityService.addNeoEntity(neoEntityVO);
+                                }
+                                NeoEntity target = neoEntityService.findByName(property_name);
+                                String[] symbol={"pin","arrow"};
+                                neoEntityService.addIRelates(source.getId(),target.getId(),true,"",property,symbol);
+                                System.out.println(name + " "+ property + " " + property_name);
+                            }
+                        }else {
+                            if(neoEntityService.findByName((String)res2.get(property))==null){
+                                String des = "other";
+                                NeoEntityVO neoEntityVO = new NeoEntityVO();
+                                neoEntityVO.setNodeId((long) -1);
+                                neoEntityVO.setName((String)res2.get(property));
+                                neoEntityVO.setDes(des);
+                                neoEntityVO.setSymbol("circle");
+                                neoEntityService.addNeoEntity(neoEntityVO);
+                            }
+                            NeoEntity target = neoEntityService.findByName((String)res2.get(property));
+                            String[] symbol={"pin","arrow"};
+                            neoEntityService.addIRelates(source.getId(),target.getId(),true,"",property,symbol);
+                            System.out.println(name + " " + property + (String)res2.get(property));
+                        }
+                    }
+                }
+            }
+        }catch (IOException exception){
+            System.out.println("exception");
         }
-
-        for(int i=0; i < categories.size();i++){
-            JSONObject categoryJson = JSONObject.fromObject(categories.getString(i));
-            String name = categoryJson.getString("name");
-            String color=JSONObject.fromObject(categoryJson.getString("itemStyle")).getString("color");
-            neoEntityService.addCategory(name,color);
-        }
-
-
-        String test_result = JSON.toJSONString(neoEntityService.initAllEntities());
-        try{
-            OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(new File("test5_result.json")),"UTF-8");
-            JSONObject obj= JSONObject.fromObject(test_result);//创建JSONObject对象
-            osw.write(obj.toString());
-            osw.flush();
-            osw.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        System.out.println("Start Reading File...");
+//        File file = new File("test5.json");
+//        String allStrings = "";
+//        try{
+//            FileInputStream in = new FileInputStream(file);
+//            int size = in.available();
+//            byte[] buffer = new byte[size];
+//            in.read(buffer);
+//            in.close();
+//            allStrings = new String(buffer,"UTF-8");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        System.out.println("End Reading File");
+//        if(allStrings.equals(""))
+//            return;
+//
+//        JSONArray neoEntities;
+//        JSONArray links;
+//        JSONArray categories;
+//
+//        neoEntities = (JSONArray) JSONObject.fromObject(allStrings).get("data");
+//        links = (JSONArray)JSONObject.fromObject(allStrings).get("links");
+//        categories= (JSONArray)JSONObject.fromObject(allStrings).get("categories");
+//        for(int i=0; i < neoEntities.size();i++){
+//            JSONObject neoJson = JSONObject.fromObject(neoEntities.getString(i));
+//            String name = neoJson.getString("name");
+//            String des = neoJson.getString("des");
+//            NeoEntityVO neoEntityVO = new NeoEntityVO();
+//            neoEntityVO.setNodeId((long) -1);
+//            neoEntityVO.setName(name);
+//            neoEntityVO.setDes(des);
+//            neoEntityVO.setSymbol("circle");
+//            neoEntityService.addNeoEntity(neoEntityVO);
+//        }
+//
+//        for(int i=0;i<links.size();i++){
+//            JSONObject relationJson = JSONObject.fromObject(links.getString(i));
+//            String source = relationJson.getString("source");
+//            String target = relationJson.getString("target");
+//            String name = relationJson.getString("name");
+//            String des = relationJson.getString("des");
+//            String type = JSONObject.fromObject(relationJson.getString("lineStyle")).getString("type");
+//            String[] symbol={"pin","arrow"};
+//            NeoEntity fromEntity = neoEntityService.findByName(source);
+//            NeoEntity toEntity = neoEntityService.findByName(target);
+//            if(fromEntity == null || toEntity == null){
+//                continue;
+//            }
+//            boolean isSolid = false;
+//            if(type.equals("solid"))
+//                isSolid = true;
+//            neoEntityService.addIRelates(fromEntity.getId(),toEntity.getId(),isSolid,des,name,symbol);
+//        }
+//
+//        for(int i=0; i < categories.size();i++){
+//            JSONObject categoryJson = JSONObject.fromObject(categories.getString(i));
+//            String name = categoryJson.getString("name");
+//            String color=JSONObject.fromObject(categoryJson.getString("itemStyle")).getString("color");
+//            neoEntityService.addCategory(name,color);
+//        }
+//
+//
+//        String test_result = JSON.toJSONString(neoEntityService.initAllEntities());
+//        try{
+//            OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(new File("test5_result.json")),"UTF-8");
+//            JSONObject obj= JSONObject.fromObject(test_result);//创建JSONObject对象
+//            osw.write(obj.toString());
+//            osw.flush();
+//            osw.close();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 }
