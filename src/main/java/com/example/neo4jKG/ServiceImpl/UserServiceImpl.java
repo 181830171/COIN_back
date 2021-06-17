@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     private String USER_EXIST="用户名已存在！请更换";
     private String REGISTER_SUCCESS="注册成功！";
 
+
+    /**
+     * 用户登录
+     * @param username,password
+     */
     @Override
     public ResponseVO login(String username, String password) {
         List<User> users=userRepository.findByUsername(username);
@@ -35,6 +40,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 用户注册
+     * @param username,password
+     */
     @Override
     public ResponseVO register(String username,String password){
         List<User> users=userRepository.findByUsername(username);

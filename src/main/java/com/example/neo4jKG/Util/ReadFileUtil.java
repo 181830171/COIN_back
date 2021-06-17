@@ -30,11 +30,11 @@ public class ReadFileUtil {
     public void readFileAndSave(){
         neoEntityService.clearRepository();
         userService.register("admin","123456");
-        neoEntityService.addCategory("种族","#00ffff");
-        neoEntityService.addCategory("职业","#ff0000");
-        neoEntityService.addCategory("性别","#0000ff");
-        neoEntityService.addCategory("地点/组织","#225544");
-        neoEntityService.addCategory("其它","#660044");
+        neoEntityService.addCategory("种族","#4992ff");
+        neoEntityService.addCategory("职业","#7cffb2");
+        neoEntityService.addCategory("性别","#fddd60");
+        neoEntityService.addCategory("地点/组织","#ff6e76");
+        neoEntityService.addCategory("其它","#ff8a45");
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("harrypotterproperty.json")));
             int line = 1;

@@ -180,6 +180,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
     /**
      * initAllEntitiesAndRelations
      * 初始化所有节点位置和大小
+     * 调用服务 neoEntityRepository.findAll,neoEntityRepository.updateByEntity
      */
     @Override
     public NodeListVO initAllEntities(){
@@ -300,7 +301,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
      * 调用服务:
      * relateRepository.findAll 获取所有的关系
      * neoEntityDriver.findRelatedNodes 根据id获取相关节点
-     *
+     * relateRepository.findLimitedAll 获取一定数量的关系
      * @return
      */
     @Override
@@ -444,6 +445,7 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
     /**
      * 获取搜索历史
+     * 调用searchHistoryRepository.findAll()
      */
 
     @Override
