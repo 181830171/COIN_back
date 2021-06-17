@@ -26,6 +26,14 @@ public class ReadFileUtil {
     @Autowired
     UserService userService;
 
+    public static void bufferedWriterMethod(String filepath, String content){
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filepath,true))) {
+            bufferedWriter.write(content);
+        }catch (IOException exception){
+            System.out.println("IOEXCEPTION");
+        }
+    }
+
     @PostConstruct
     public void readFileAndSave(){
         neoEntityService.clearRepository();
@@ -63,6 +71,7 @@ public class ReadFileUtil {
                     neoEntityVO.setDes(des);
                     neoEntityVO.setSymbol("circle");
                     neoEntityService.addNeoEntity(neoEntityVO);
+//                    bufferedWriterMethod("dict.txt",name+" 3 nr\n");
                 }
                 NeoEntity source = neoEntityService.findByName(name);
                 Map<String, Object> res2 = JSONObject.fromObject(result.get(name));
@@ -88,10 +97,11 @@ public class ReadFileUtil {
                                         neoEntityVO.setDes(des);
                                         neoEntityVO.setSymbol("circle");
                                         neoEntityService.addNeoEntity(neoEntityVO);
+//                                        bufferedWriterMethod("dict.txt",family_name+" 3 nr\n");
                                     }
                                     NeoEntity target = neoEntityService.findByName(family_name);
                                     String[] symbol={"pin","arrow"};
-                                    neoEntityService.addIRelates(source.getId(),target.getId(),true,"",family_info,symbol);
+                                    neoEntityService.addIRelates(source.getId(),target.getId(),true,"家庭信息",family_info,symbol);
                                     System.out.println(name + " " + family_info + " " + family_name);
                                 }
                             }else {
@@ -104,10 +114,11 @@ public class ReadFileUtil {
                                     neoEntityVO.setDes(des);
                                     neoEntityVO.setSymbol("circle");
                                     neoEntityService.addNeoEntity(neoEntityVO);
+//                                    bufferedWriterMethod("dict.txt",(String)res3.get(family_info)+" 3 nr\n");
                                 }
                                 NeoEntity target = neoEntityService.findByName((String)res3.get(family_info));
                                 String[] symbol={"pin","arrow"};
-                                neoEntityService.addIRelates(source.getId(),target.getId(),true,"",family_info,symbol);
+                                neoEntityService.addIRelates(source.getId(),target.getId(),true,"家庭信息",family_info,symbol);
                                 System.out.println(name + " "+family_info + " " + (String) res3.get(family_info));
                             }
                         }
@@ -122,6 +133,7 @@ public class ReadFileUtil {
                                     if(property.equals("从属") || property.equals("学院")){
                                         des = "地点/组织";
                                         neoEntityVO.setCategory(3L);
+//                                        bufferedWriterMethod("dict.txt",property_name+" 3 nl\n");
                                     }else if(property.equals("职业")){
                                         des = "职业";
                                         neoEntityVO.setCategory(1L);
@@ -151,6 +163,7 @@ public class ReadFileUtil {
                                 if(property.equals("从属") || property.equals("学院")){
                                     des = "地点/组织";
                                     neoEntityVO.setCategory(3L);
+//                                    bufferedWriterMethod("dict.txt",(String)res2.get(property)+" 3 nl\n");
                                 }else if(property.equals("职业")){
                                     des = "职业";
                                     neoEntityVO.setCategory(1L);
