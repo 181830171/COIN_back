@@ -18,7 +18,7 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             //路径对应本地question_processor.py
             if(question==null){question="哈利·波特的祖父是谁？";}
-            String path="D:\\CollegeStudy\\Third-Two\\software3\\harrypotter\\openkg-harry-potter\\OpenKG-Harry-Potter-main\\qa\\question_processor.py";
+            String path=System.getProperty("user.dir") + "\\chatbot\\chatbot.py";
             String[] args1 = new String[] { "python",path,question };
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
 
