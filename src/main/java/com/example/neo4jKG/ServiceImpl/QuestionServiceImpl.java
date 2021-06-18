@@ -21,7 +21,7 @@ public class QuestionServiceImpl implements QuestionService {
             String path=System.getProperty("user.dir") + "\\chatbot\\chatbot.py";
             String[] args1 = new String[] { "python",path,question };
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
-
+            proc.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
             String line = "";
             while ((line = in.readLine()) != null) {
