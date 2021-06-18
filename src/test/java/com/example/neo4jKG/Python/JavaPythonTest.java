@@ -10,9 +10,10 @@ public class JavaPythonTest {
     public static void main(String[] args) {
         try {
             //路径对应本地question_processor.py
-            String[] args1 = new String[] { "python","D:\\CollegeStudy\\Third-Two\\software3\\harrypotter\\openkg-harry-potter\\OpenKG-Harry-Potter-main\\qa\\question_processor.py", "哈利·波特的祖父是？" };
+            String[] args1 = new String[] { "python","F:\\SE_III\\backend_coin\\chatbot\\chatbot.py", "哈利·波特的祖父是谁" };
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
 
+            proc.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
             String line;
             while ((line = in.readLine()) != null) {

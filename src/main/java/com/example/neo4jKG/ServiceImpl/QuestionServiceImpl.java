@@ -13,6 +13,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public ResponseVO getAnswer(String question) {
+        String res = "";
         //TODO 根据问题获取结果
         try {
             //路径对应本地question_processor.py
@@ -22,17 +23,16 @@ public class QuestionServiceImpl implements QuestionService {
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
 
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
-            String line;
+            String line = "";
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
+                res += line;
             }
             in.close();
             proc.waitFor();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return ResponseVO.buildSuccess(res);
     }
 }
