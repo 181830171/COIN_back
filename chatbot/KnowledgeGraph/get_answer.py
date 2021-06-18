@@ -1,14 +1,11 @@
 from py2neo import *
 
-
-#class Get_answer():
-#def __init__(self):
-   # self.graph = Graph("http://localhost:7474", auth=("neo4j","root"))
 graph = Graph("http://localhost:7474", username="neo4j",password="root")
 
 def get_data(index, params):
     query = ''
     if index == 0:
+        #出生信息
         query = "MATCH (m)<-[:FROM]-(r:Relation)-[:TO]->(n) WHERE r.name='出生' and m.name='{}' RETURN  n.name;".format(params[0]) # 出生
     elif index == 1:
         # 血统
@@ -66,12 +63,11 @@ def get_data(index, params):
                 "RETURN distinct n.name;".format(params[0],params[1])
 
     result = graph.run(query)
-    print(query)
+    #print(query)
     return result
 
 
 if __name__ == "__main__":
-    #ga = Get_answer()
-    answers = get_data(1, ['卧虎藏龙'])
+    answers = get_data(1, ['哈利·波特'])
     for answer in answers:
         print(answer[0])
