@@ -13,26 +13,35 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public ResponseVO getAnswer(String question) {
-        String res = "";
-        //TODO 根据问题获取结果
         try {
-            //路径对应本地question_processor.py
-            if(question==null){question="哈利·波特的祖父是谁？";}
-            String path="D:\\CollegeStudy\\Third-Two\\software3\\harrypotter\\openkg-harry-potter\\OpenKG-Harry-Potter-main\\qa\\question_processor.py";
-            String[] args1 = new String[] { "python",path,question };
+            //路径对应chatbot.py
+            String path=".\\chatbot\\chatbot.py";
+            String[] args1 = new String[] { "python",path, question };
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
-
+            String result="";
+            proc.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
-            String line = "";
+
+            int line_num=0;//记录答案行数
+            String line;
             while ((line = in.readLine()) != null) {
+                line_num++;
                 System.out.println(line);
-                res += line;
+                result+=line;
+            }
+            if(line_num==1&&line.startsWith("*")){
+                //如果答案仅有一行，且为提示行
+                result="抱歉数据库中没有找到相关信息";
+                System.out.println("抱歉数据库中没有找到相关信息");
             }
             in.close();
             proc.waitFor();
-        } catch (IOException | InterruptedException e) {
+            return ResponseVO.buildSuccess(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return ResponseVO.buildSuccess(res);
+        return ResponseVO.buildFailure("发生未知错误");
     }
 }

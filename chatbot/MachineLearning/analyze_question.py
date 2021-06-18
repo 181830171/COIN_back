@@ -5,7 +5,7 @@ import jieba.posseg as pseg
 import jieba
 import os
 
-# class AnalysisQuestion():
+
 #获取父目录
 dir_path=os.path.dirname(os.path.realpath(__file__))
 dict_path = dir_path+'/participle_dict/dict.txt'
@@ -23,7 +23,7 @@ def load_question_classification():
     return question_classification
 
 
-# jieba.load_userdict('./participle_dict/dict.txt')
+
 vocab_path = dir_path+'/model/vocabulary.json'
 model_path = dir_path+'/model/clf.model'
 question_classification_path = dir_path+'/model/question_classification.json'
@@ -39,7 +39,7 @@ def abstract_question(question):
     :RETURN:
     """
     list_word = pseg.lcut(question)  # 中文分词
-    print('抽象分词结果', list_word)
+    #print('抽象分词结果', list_word)
     abstractQuery = ''
     nm_count = 0
     i = 0
@@ -88,7 +88,7 @@ def abstract_question(question):
     #         self.abstractMap['x'] = word
     #     else:
     #         abstractQuery += word + " "
-    print('抽象查询结果 ', abstractQuery)
+    #print('抽象查询结果 ', abstractQuery)
     return abstractQuery
 
 
@@ -122,11 +122,11 @@ def query_extention(temp):
 
 
 def analysis_question(question):
-    print('原始句子：{}'.format(question))
+    #print('原始句子：{}'.format(question))
     abstr = abstract_question(question)
-    print('句子抽象化结果：{}'.format(abstr))
+    #print('句子抽象化结果：{}'.format(abstr))
     index, strpatt = query_classify(abstr)
-    print('句子对应的索引{}\t模板：{}'.format(index, strpatt))
+    #print('句子对应的索引{}\t模板：{}'.format(index, strpatt))
     finalpatt = query_extention(strpatt)
     return index, finalpatt
 
