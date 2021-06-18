@@ -1,6 +1,7 @@
 from MachineLearning.analyze_question import analysis_question
 from KnowledgeGraph.get_answer import get_data
 import sys
+import re
 
 def get_answer(index,params):
     answers = get_data(index, params)
@@ -63,7 +64,9 @@ def get_answer(index,params):
 
 
 if __name__ == "__main__":
-    question = str(sys.argv[1])
+    # question = str(sys.argv[1])
+    question = input('请输入你的问题:')
+    question = re.sub(r'[.?。？；‘*+\n\b\r]','',question)
     index, params = analysis_question(question)
     #print('index params', index, params)
     get_answer(index,params)

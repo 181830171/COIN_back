@@ -4,11 +4,12 @@ import numpy as np
 import jieba.posseg as pseg
 import jieba
 import os
-
+import re
 
 #获取父目录
 dir_path=os.path.dirname(os.path.realpath(__file__))
 dict_path = dir_path+'/participle_dict/dict.txt'
+fullname_path = dir_path + '/participle_dict/fullname.txt'
 jieba.load_userdict(dict_path)
 
 def load_vocab():
@@ -63,6 +64,27 @@ def abstract_question(question):
         elif 'nf' in pos:
             abstractQuery += "nr "
             abstractMap['nr'] = word
+        elif 'nr' in pos:
+            if i<len(list_word)-1 and '·' in list_word[i+1].word:
+                pass
+            else:
+                with open(fullname_path,'r',encoding='utf-8') as fullname:
+                    lines = fullname.readlines()
+                    pattern = re.compile(r''+word+'·(.*?) ')
+                    names = pattern.findall(lines.__str__())
+                    if len(names) == 0:
+                        pass
+                    else:
+                        name = word + '·' + names[0]
+                        print(word + ' 被认为是 ' + name)
+                        if nm_count == 0:
+                            abstractQuery += "nm "
+                            abstractMap['nm'] = name
+                            nm_count += 1
+                        else:
+                            abstractQuery += "nnr "
+                            abstractMap['nnr'] = name
+                            nm_count += 1
         else:
             if i < len(list_word) - 1 and '·' in list_word[i + 1].word:
                 pass

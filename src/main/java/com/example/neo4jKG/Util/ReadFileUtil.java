@@ -71,7 +71,11 @@ public class ReadFileUtil {
                     neoEntityVO.setDes(des);
                     neoEntityVO.setSymbol("circle");
                     neoEntityService.addNeoEntity(neoEntityVO);
-//                    bufferedWriterMethod("dict.txt",name+" 3 nr\n");
+                    int tmp = name.indexOf("·");
+//                    if(tmp >0){
+//                        bufferedWriterMethod("dict.txt",name.substring(0,tmp)+" 10 nr\n");
+//                    }
+//                    bufferedWriterMethod("fullname.txt",name+" \n");
                 }
                 NeoEntity source = neoEntityService.findByName(name);
                 Map<String, Object> res2 = JSONObject.fromObject(result.get(name));
@@ -97,7 +101,11 @@ public class ReadFileUtil {
                                         neoEntityVO.setDes(des);
                                         neoEntityVO.setSymbol("circle");
                                         neoEntityService.addNeoEntity(neoEntityVO);
-//                                        bufferedWriterMethod("dict.txt",family_name+" 3 nr\n");
+                                        int tmp = family_name.indexOf("·");
+//                                        if(tmp>0){
+//                                            bufferedWriterMethod("dict.txt",family_name.substring(0,tmp)+" 10 nr\n");
+//                                        }
+//                                        bufferedWriterMethod("fullname.txt",family_name+" \n");
                                     }
                                     NeoEntity target = neoEntityService.findByName(family_name);
                                     String[] symbol={"pin","arrow"};
@@ -114,7 +122,12 @@ public class ReadFileUtil {
                                     neoEntityVO.setDes(des);
                                     neoEntityVO.setSymbol("circle");
                                     neoEntityService.addNeoEntity(neoEntityVO);
-//                                    bufferedWriterMethod("dict.txt",(String)res3.get(family_info)+" 3 nr\n");
+                                    String family_name = (String)res3.get(family_info);
+                                    int tmp = family_name.indexOf("·");
+//                                    if(tmp>0){
+//                                        bufferedWriterMethod("dict.txt",family_name.substring(0,tmp) + " 10 nr\n");
+//                                    }
+//                                    bufferedWriterMethod("fullname.txt",family_name+" \n");
                                 }
                                 NeoEntity target = neoEntityService.findByName((String)res3.get(family_info));
                                 String[] symbol={"pin","arrow"};
