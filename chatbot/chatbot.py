@@ -64,12 +64,12 @@ def get_answer(index,params):
 
 
 if __name__ == "__main__":
-    # question = str(sys.argv[1])
-    question = input('请输入你的问题:')
+    question = str(sys.argv[1])
+    # question = input('请输入你的问题:')
     question = re.sub(r'[.?。？；‘*+\n\b\r]','',question)
     index, params = analysis_question(question)
-    #print('index params', index, params)
-    get_answer(index,params)
+    if index != -1:
+        get_answer(index,params)
 
 
 

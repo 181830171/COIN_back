@@ -75,7 +75,7 @@ public class ReadFileUtil {
 //                    if(tmp >0){
 //                        bufferedWriterMethod("dict.txt",name.substring(0,tmp)+" 10 nr\n");
 //                    }
-//                    bufferedWriterMethod("fullname.txt",name+" \n");
+                    bufferedWriterMethod("fullname.txt"," "+name+" \n");
                 }
                 NeoEntity source = neoEntityService.findByName(name);
                 Map<String, Object> res2 = JSONObject.fromObject(result.get(name));
@@ -105,7 +105,7 @@ public class ReadFileUtil {
 //                                        if(tmp>0){
 //                                            bufferedWriterMethod("dict.txt",family_name.substring(0,tmp)+" 10 nr\n");
 //                                        }
-//                                        bufferedWriterMethod("fullname.txt",family_name+" \n");
+                                        bufferedWriterMethod("fullname.txt"," " + family_name+" \n");
                                     }
                                     NeoEntity target = neoEntityService.findByName(family_name);
                                     String[] symbol={"pin","arrow"};
@@ -127,7 +127,7 @@ public class ReadFileUtil {
 //                                    if(tmp>0){
 //                                        bufferedWriterMethod("dict.txt",family_name.substring(0,tmp) + " 10 nr\n");
 //                                    }
-//                                    bufferedWriterMethod("fullname.txt",family_name+" \n");
+                                    bufferedWriterMethod("fullname.txt"," "+family_name+" \n");
                                 }
                                 NeoEntity target = neoEntityService.findByName((String)res3.get(family_info));
                                 String[] symbol={"pin","arrow"};
