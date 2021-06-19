@@ -475,11 +475,14 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         if(searchHistories.size()==0) {
             searchHistoryRepository.save(searchHistory);
         }
+
+        ArrayList<Long> nodeIds=new ArrayList<>();
         //根据文本直接查询部分
         List<NeoEntity> neoEntities=neoEntityRepository.searchNodes(message);
         List<NeoEntityVO> neoEntityVOS=new ArrayList<>();
         for(NeoEntity neoEntity:neoEntities){
             neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
+            nodeIds.add(neoEntity.getId());
         }
         //TODO 智能搜索
         try {
@@ -497,9 +500,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
 
                 //如果该行不是提示行，则搜索答案有关的节点
                 if(!line.startsWith("*")) {
-                    neoEntities = neoEntityRepository.searchNodes(line);
+                    neoEntities = neoEntityRepository.findByName(line);
                     for (NeoEntity neoEntity : neoEntities) {
-                        neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
+                        if(!nodeIds.contains(neoEntity.getId())) {
+                            neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
+                            nodeIds.add(neoEntity.getId());
+                        }
                     }
                 }
             }
