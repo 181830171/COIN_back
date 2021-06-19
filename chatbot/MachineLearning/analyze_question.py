@@ -76,7 +76,7 @@ def abstract_question(question):
                         pass
                     else:
                         name = word + '·' + names[0]
-                        print(word + ' 被认为是 ' + name)
+                        print("*"+ word + ' 被认为是 ' + name+"：")
                         if nm_count == 0:
                             abstractQuery += "nm "
                             abstractMap['nm'] = name

@@ -22,6 +22,8 @@ def get_answer(index, params):
     elif index == 4:
         # 组织
         print("*" + params[0] + "参与了以下组织/学院：")
+    elif index == 5:
+        print("*该问题的答案如下：")
     elif index == 6:
         # 性别
         print("*" + params[0] + "的性别为：")

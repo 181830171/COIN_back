@@ -32,8 +32,8 @@ public class QuestionServiceImpl implements QuestionService {
                 System.out.println(line);
                 result+=line+"\n";
             }
-            if(line_num==1&&line.startsWith("*")){
-                //如果答案仅有一行，且为提示行
+            if(line_num==1){
+                //如果答案仅有一行提示行
                 result="抱歉数据库中没有找到相关信息";
                 System.out.println(result);
             }
