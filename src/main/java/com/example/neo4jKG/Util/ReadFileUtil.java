@@ -38,7 +38,7 @@ public class ReadFileUtil {
     public void readFileAndSave(){
         neoEntityService.clearRepository();
         userService.register("admin","123456");
-        neoEntityService.addCategory("种族","#4992ff");
+        neoEntityService.addCategory("人物","#4992ff");
         neoEntityService.addCategory("职业","#7cffb2");
         neoEntityService.addCategory("性别","#fddd60");
         neoEntityService.addCategory("地点/组织","#ff6e76");
