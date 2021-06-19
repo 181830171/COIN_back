@@ -11,12 +11,15 @@ import java.io.InputStreamReader;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
+    /*
+        智能问答，调用python程序，获取输出
+     */
     @Override
     public ResponseVO getAnswer(String question) {
         try {
             //路径对应chatbot.py
-            String path=".\\chatbot\\chatbot.py";
-            String[] args1 = new String[] { "python",path, question };
+            String path=System.getProperty("user.dir")+"\\chatbot\\chatbot.py";
+            String[] args1 = new String[] { "python",path, question};
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
             String result="";
             proc.waitFor();
@@ -27,12 +30,12 @@ public class QuestionServiceImpl implements QuestionService {
             while ((line = in.readLine()) != null) {
                 line_num++;
                 System.out.println(line);
-                result+=line;
+                result+=line+"\n";
             }
             if(line_num==1&&line.startsWith("*")){
                 //如果答案仅有一行，且为提示行
                 result="抱歉数据库中没有找到相关信息";
-                System.out.println("抱歉数据库中没有找到相关信息");
+                System.out.println(result);
             }
             in.close();
             proc.waitFor();

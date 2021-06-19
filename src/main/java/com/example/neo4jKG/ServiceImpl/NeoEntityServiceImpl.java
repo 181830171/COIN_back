@@ -16,6 +16,9 @@ import com.example.neo4jKG.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 @Service
@@ -467,15 +470,48 @@ public class NeoEntityServiceImpl implements NeoEntityService {
         SearchHistory searchHistory=new SearchHistory();
         searchHistory.setId((long)-1);
         searchHistory.setHistory(message);
+        //保存搜索记录
         List<SearchHistory> searchHistories=searchHistoryRepository.findByHistory(message);
         if(searchHistories.size()==0) {
             searchHistoryRepository.save(searchHistory);
         }
+        //根据文本直接查询部分
         List<NeoEntity> neoEntities=neoEntityRepository.searchNodes(message);
         List<NeoEntityVO> neoEntityVOS=new ArrayList<>();
         for(NeoEntity neoEntity:neoEntities){
             neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
         }
+        //TODO 智能搜索
+        try {
+            //路径对应chatbot.py
+            String path=".\\chatbot\\chatbot.py";
+            String[] args1 = new String[] { "python",path, message};
+            Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
+
+            proc.waitFor();
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(),"GBK"));
+
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+
+                //如果该行不是提示行，则搜索答案有关的节点
+                if(!line.startsWith("*")) {
+                    neoEntities = neoEntityRepository.searchNodes(line);
+                    for (NeoEntity neoEntity : neoEntities) {
+                        neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
+                    }
+                }
+            }
+
+            in.close();
+            proc.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return ResponseVO.buildSuccess(neoEntityVOS);
     }
 }
