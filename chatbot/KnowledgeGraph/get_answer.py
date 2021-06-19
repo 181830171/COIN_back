@@ -50,16 +50,16 @@ def get_data(index, params):
     elif index == 12:
         # A 和 B 共同组织
         query = "MATCH (m)<-[:FROM]-(r:Relation)-[:TO]->(n) " \
-                "MATCH (p)<-[:FROM]-(q:Relation)-[:TO]->(s)" \
-                "WHERE r.name='从属' and q.name = '从属' and m.name='{}' and p.name = '{}'" \
-                "and n.name = s.name" \
+                "MATCH (p)<-[:FROM]-(q:Relation)-[:TO]->(s) " \
+                "WHERE r.name='从属' and q.name = '从属' and m.name='{}' and p.name = '{}' " \
+                "and n.name = s.name " \
                 "RETURN distinct n.name;".format(params[0],params[1])
     elif index == 13:
         # A 和 B 共同亲戚
         query = "MATCH (m)<-[:FROM]-(r:Relation)-[:TO]->(n) " \
-                "MATCH (p)<-[:FROM]-(q:Relation)-[:TO]->(s)" \
-                "WHERE r.des='家庭信息' and q.des = '家庭信息' and m.name='{}' and p.name = '{}'" \
-                "and n.name = s.name" \
+                "MATCH (p)<-[:FROM]-(q:Relation)-[:TO]->(s) " \
+                "WHERE r.des='家庭信息' and q.des = '家庭信息' and m.name='{}' and p.name = '{}' " \
+                "and n.name = s.name " \
                 "RETURN distinct n.name;".format(params[0],params[1])
 
     result = graph.run(query)
