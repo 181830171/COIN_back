@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService {
                 System.out.println(line);
                 result+=line+"\n";
             }
-            if(line_num==1){
+            if(line_num==1 && !result.contains("请输入")){
                 //如果答案仅有一行提示行
                 result="抱歉数据库中没有找到相关信息";
                 System.out.println(result);
