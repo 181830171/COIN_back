@@ -19,7 +19,8 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             //路径对应chatbot.py
             String path=System.getProperty("user.dir")+"\\chatbot\\chatbot.py";
-            String[] args1 = new String[] { "python",path, question};
+            //参数“1”/“0”对应否/是采用多轮问答
+            String[] args1 = new String[] { "python",path, question,"0"};
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
             String result="";
             proc.waitFor();

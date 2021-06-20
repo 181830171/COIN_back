@@ -1,4 +1,6 @@
 from MachineLearning.analyze_question import analysis_question
+from MachineLearning.analyze_question1 import analysis_question1
+
 from KnowledgeGraph.get_answer import get_data
 from MachineLearning.replace_synonym import replace_synonym_words
 import sys
@@ -72,11 +74,13 @@ def get_answer(index, params):
 
 
 if __name__ == "__main__":
-    # question = str(sys.argv[1])
-    question = input('请输入你的问题:')
-    question = re.sub(r'[.?。？；‘*+\n\b\r]','',question)
-    index, params = analysis_question(question)
+    question = replace_synonym_words(str(sys.argv[1]))
+
+    # question = input('请输入你的问题:')
+    question = re.sub(r'[.?。？；‘*+\n\b\r]', '', question)
+    if int(sys.argv[2]) == 0:
+        index, params = analysis_question(question)
+    elif int(sys.argv[2]) == 1:
+        index, params = analysis_question1(question)
     if index != -1:
-        get_answer(index,params)
-
-
+        get_answer(index, params)

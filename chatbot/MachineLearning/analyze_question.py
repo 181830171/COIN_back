@@ -82,7 +82,7 @@ def abstract_question(question):
     list_word = pseg.lcut(question)  # 中文分词
     cur_result = Last_Result()
     cur_result.last_question = question
-    print('抽象分词结果', list_word)
+    #print('抽象分词结果', list_word)
     abstractQuery = ''
     nm_count = 0
     i = 0
@@ -228,5 +228,5 @@ if __name__ == "__main__":
         last_result = load_last_result()
         question = input('请输入你想查询的信息：')  # 英雄这部电影讲的什么？
         index, params = analysis_question(question)
-        print('index params', index, params)
+        #print('index params', index, params)
         finished = True

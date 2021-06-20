@@ -484,11 +484,12 @@ public class NeoEntityServiceImpl implements NeoEntityService {
             neoEntityVOS.add(transVOAndPOUtil.transNeoEntity(neoEntity));
             nodeIds.add(neoEntity.getId());
         }
-        //TODO 智能搜索
+        //智能搜索
         try {
             //路径对应chatbot.py
             String path=".\\chatbot\\chatbot.py";
-            String[] args1 = new String[] { "python",path, message};
+            //参数“1”/“0”对应否/是采用多轮问答
+            String[] args1 = new String[] { "python",path, message,"1"};
             Process proc = Runtime.getRuntime().exec(args1);// 执行py文件
 
             proc.waitFor();
