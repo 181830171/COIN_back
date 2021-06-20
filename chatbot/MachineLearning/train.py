@@ -61,6 +61,8 @@ class GenerVocab():
             all_word_list += result_word_list
         all_word_set = set(all_word_list)
         result_dict = {}
+        if ' ' in result_dict.keys():
+            result_dict.pop(' ')
         for index, cont in enumerate(all_word_set):
             result_dict[cont] = index
         return result_dict

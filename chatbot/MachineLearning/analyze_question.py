@@ -219,6 +219,7 @@ def analysis_question(question):
     index, strpatt = query_classify(abstr)
     # print('句子对应的索引{}\t模板：{}'.format(index, strpatt))
     finalpatt = query_extention(strpatt)
+    # print(finalpatt)
     return index, finalpatt
 
 
