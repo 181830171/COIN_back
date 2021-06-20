@@ -34,7 +34,7 @@ public class ReadFileUtil {
         }
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void readFileAndSave(){
         neoEntityService.clearRepository();
         userService.register("admin","123456");

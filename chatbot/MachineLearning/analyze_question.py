@@ -131,6 +131,9 @@ def abstract_question(question):
                         finished = False
                         cur_result.last_word = word
                         cur_result.last_finished = False
+                        with open(last_result_path, 'w') as lr:
+                            lr.write(cur_result.transJson())
+                        break
                     else:
                         if len(names1)==1:
                             name = word + '·' + names[0]
@@ -229,5 +232,5 @@ if __name__ == "__main__":
         last_result = load_last_result()
         question = input('请输入你想查询的信息：')  # 英雄这部电影讲的什么？
         index, params = analysis_question(question)
-        #print('index params', index, params)
+        # print('index params', index, params)
         finished = True
